@@ -1,6 +1,7 @@
 package jp.gr.java_conf.osumitan.readmail.gui.main;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -36,22 +37,21 @@ public class MainFrame extends BaseFrame {
 		super("readmail");
 		// サイズ
 		setSize(800, 450);
-		setResizable(false);
 
-		// NORTH
-		JPanel north = new JPanel();
-		add(north, BorderLayout.NORTH);
 		// スタートボタン
 		this.startButton = new StartButton(this);
-		north.add(this.startButton);
-
-		// CENTER
-		JPanel center = new JPanel();
-		add(center, BorderLayout.CENTER);
 		// サイト表
 		this.siteTable = new SiteTable(this);
-		JScrollPane spSiteTable = new JScrollPane(this.siteTable);
-		center.add(spSiteTable);
+		add(this.siteTable, BorderLayout.CENTER);
+
+		// NORTH
+		JPanel np = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		np.add(this.startButton);
+		add(np, BorderLayout.NORTH);
+
+		// CENTER
+		JScrollPane cp = new JScrollPane(this.siteTable);
+		add(cp, BorderLayout.CENTER);
 	}
 
 	/**

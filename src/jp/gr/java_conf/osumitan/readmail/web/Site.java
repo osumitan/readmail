@@ -13,6 +13,8 @@ import net.arnx.jsonic.JSON;
  */
 public class Site {
 
+	/** 選択 */
+	private boolean selected;
 	/** サイト名 */
 	private String name;
 	/** ドメイン */
@@ -47,6 +49,20 @@ public class Site {
 	 */
 	public String getName() {
 		return name;
+	}
+
+	/**
+	 * @return 選択
+	 */
+	public boolean isSelected() {
+		return selected;
+	}
+
+	/**
+	 * @param selected 選択
+	 */
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 
 	/**
