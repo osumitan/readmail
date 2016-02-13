@@ -9,24 +9,24 @@ import java.io.Serializable;
  */
 public abstract class BaseActionListener<F extends BaseFrame> implements ActionListener, Serializable {
 
-/** フレーム */
-protected F frame;
-
 	/** serialVersionUID */
 	private static final long serialVersionUID = 1757008332146023140L;
+
+	/** フレーム */
+	protected F frame;
 
 	/**
 	 * コンストラクタ
 	 * @param frame フレーム
 	 */
 	public BaseActionListener(F frame) {
+		// フレーム
 		this.frame = frame;
 	}
-	
+
 	/**
 	 * イベント実行
 	 * @param e イベント
 	 */
-	@Override
 	public abstract void actionPerformed(ActionEvent e);
 }

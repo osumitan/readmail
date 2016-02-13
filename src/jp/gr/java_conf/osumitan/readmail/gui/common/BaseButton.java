@@ -7,11 +7,11 @@ import javax.swing.JButton;
  */
 public abstract class BaseButton<F extends BaseFrame> extends JButton {
 
-/** フレーム */
-protected F frame;
-
 	/** serialVersionUID */
 	private static final long serialVersionUID = -5978023895321622042L;
+
+	/** フレーム */
+	protected F frame;
 
 	/**
 	 * コンストラクタ
@@ -21,8 +21,11 @@ protected F frame;
 	 */
 	public BaseButton(F frame, String text, BaseActionListener<F> onClick) {
 		super();
+		// フレーム
 		this.frame = frame;
+		// テキスト
 		setText(text);
+		// ボタン押下時イベントリスナー
 		addActionListener(onClick);
 	}
 }
