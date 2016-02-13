@@ -43,6 +43,7 @@ public class StartButton extends BaseButton<MainFrame> {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent evt) {
+			frame.addLog("ほげ");
 //			System.setProperty("webdriver.chrome.driver", "./driver/chromedriver");
 //			WebDriver drv = new ChromeDriver();
 //			drv.get("http://www.htmlhifive.com/conts/web/view/Main/WebHome");

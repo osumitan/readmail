@@ -20,6 +20,8 @@ public class MainFrame extends BaseFrame {
 	private StartButton startButton;
 	/** サイト表 */
 	private SiteTable siteTable;
+	/** ログリスト */
+	private LogList logList;
 
 	/**
 	 * メイン
@@ -34,15 +36,17 @@ public class MainFrame extends BaseFrame {
 	 * デフォルトコンストラクタ
 	 */
 	public MainFrame() {
+
 		super("readmail");
 		// サイズ
-		setSize(800, 450);
+		setSize(800, 600);
 
 		// スタートボタン
 		this.startButton = new StartButton(this);
 		// サイト表
 		this.siteTable = new SiteTable(this);
-		add(this.siteTable, BorderLayout.CENTER);
+		// ログリスト
+		this.logList = new LogList(this);
 
 		// NORTH
 		JPanel np = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -50,8 +54,20 @@ public class MainFrame extends BaseFrame {
 		add(np, BorderLayout.NORTH);
 
 		// CENTER
-		JScrollPane cp = new JScrollPane(this.siteTable);
-		add(cp, BorderLayout.CENTER);
+		JScrollPane cpSiteTable = new JScrollPane(this.siteTable);
+		add(cpSiteTable, BorderLayout.CENTER);
+
+		// SOUTH
+		JScrollPane cpLogList = new JScrollPane(logList);
+		add(cpLogList, BorderLayout.SOUTH);
+	}
+
+	/**
+	 * ログ追加
+	 * @param log ログ
+	 */
+	public void addLog(String log) {
+		this.logList.add(log);
 	}
 
 	/**
@@ -66,5 +82,12 @@ public class MainFrame extends BaseFrame {
 	 */
 	public SiteTable getSiteTable() {
 		return siteTable;
+	}
+
+	/**
+	 * @return ログリスト
+	 */
+	public LogList getLogList() {
+		return logList;
 	}
 }

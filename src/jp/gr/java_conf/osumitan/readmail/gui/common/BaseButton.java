@@ -4,6 +4,7 @@ import javax.swing.JButton;
 
 /**
  * ボタンの基底クラス
+ * @param <F> フレーム
  */
 public abstract class BaseButton<F extends BaseFrame> extends JButton {
 
