@@ -33,6 +33,32 @@ public class SiteTable extends BaseTable<MainFrame, Site> {
 	}
 
 	/**
+	 * 編集可否
+	 * @param r 行番号
+	 * @param c 列番号
+	 * @return 編集可否
+	 */
+	@Override
+	public boolean isCellEditable(int r, int c) {
+		// 選択チェックのみ可
+		return c == 0;
+	}
+
+	/**
+	 * 列値設定
+	 * @param value 列値
+	 * @param r 行番号
+	 * @param c 列番号
+	 */
+	@Override
+	public void setValueAt(Object value, int r, int c) {
+		// 選択チェックのみ受付
+		if(c == 0) {
+			dataList.get(r).setSelected(Boolean.valueOf(String.valueOf(value)));
+		}
+	}
+
+	/**
 	 * テーブルモデル
 	 */
 	static class SiteTableModel extends BaseTableModel<Site> {
@@ -44,6 +70,9 @@ public class SiteTable extends BaseTable<MainFrame, Site> {
 		 * 列情報
 		 */
 		private static List<Column> COLUMN_LIST = new ArrayList<Column>();
+		static {
+
+		}
 
 		/**
 		 * コンストラクタ
@@ -52,11 +81,10 @@ public class SiteTable extends BaseTable<MainFrame, Site> {
 		SiteTableModel(List<Site> dataList) {
 			super(dataList, COLUMN_LIST);
 			// 列情報
-			COLUMN_LIST.add(new Column("ドメイン", Site::getDomain));
-			COLUMN_LIST.add(new Column("サイト名", Site::getName));
-			COLUMN_LIST.add(new Column("ログインページ", Site::getLoginPage));
-			COLUMN_LIST.add(new Column("ログインID", Site::getLoginId));
-			COLUMN_LIST.add(new Column("ログインパスワード", Site::getLoginPassword));
+			COLUMN_LIST.clear();
+			COLUMN_LIST.add(new Column("", Boolean.class, Site::isSelected));
+			COLUMN_LIST.add(new Column("ドメイン", String.class, Site::getDomain));
+			COLUMN_LIST.add(new Column("サイト名", String.class, Site::getName));
 		}
 	}
 }
