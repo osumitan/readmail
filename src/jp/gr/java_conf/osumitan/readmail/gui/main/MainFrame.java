@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import jp.gr.java_conf.osumitan.readmail.gui.common.BaseFrame;
+import jp.gr.java_conf.osumitan.readmail.web.main.MainThread;
 
 /**
  * メインフレーム
@@ -16,8 +17,12 @@ public class MainFrame extends BaseFrame {
 	/** serialVersionUID */
 	private static final long serialVersionUID = -7242896871386666060L;
 
-	/** スタートボタン */
+	/** メインスレッド */
+	private MainThread mainThread;
+	/** 開始ボタン */
 	private StartButton startButton;
+	/** 停止ボタン */
+	private StopButton stopButton;
 	/** サイト表 */
 	private SiteTable siteTable;
 	/** ログリスト */
@@ -36,13 +41,17 @@ public class MainFrame extends BaseFrame {
 	 * デフォルトコンストラクタ
 	 */
 	public MainFrame() {
-
 		super("readmail");
+
 		// サイズ
 		setSize(800, 600);
 
-		// スタートボタン
+		// メインスレッド
+		this.mainThread = null;
+		// 開始ボタン
 		this.startButton = new StartButton(this);
+		// 停止ボタン
+		this.stopButton = new StopButton(this);
 		// サイト表
 		this.siteTable = new SiteTable(this);
 		// ログリスト
@@ -51,6 +60,7 @@ public class MainFrame extends BaseFrame {
 		// NORTH
 		JPanel np = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		np.add(this.startButton);
+		np.add(this.stopButton);
 		add(np, BorderLayout.NORTH);
 
 		// CENTER
@@ -63,18 +73,46 @@ public class MainFrame extends BaseFrame {
 	}
 
 	/**
-	 * ログ追加
-	 * @param log ログ
+	 * ログクリア
 	 */
-	public void addLog(String log) {
-		this.logList.add(log);
+	public void clearLog() {
+		this.logList.clear();
 	}
 
 	/**
-	 * @return スタートボタン
+	 * ログ出力
+	 * @param message メッセージ
+	 */
+	public void log(String message) {
+		this.logList.add(message);
+	}
+
+	/**
+	 * @return メインスレッド
+	 */
+	public MainThread getMainThread() {
+		return mainThread;
+	}
+
+	/**
+	 * @param mainThread メインスレッド
+	 */
+	public void setMainThread(MainThread mainThread) {
+		this.mainThread = mainThread;
+	}
+
+	/**
+	 * @return 開始ボタン
 	 */
 	public StartButton getStartButton() {
 		return startButton;
+	}
+
+	/**
+	 * @return 停止ボタン
+	 */
+	public StopButton getStopButton() {
+		return stopButton;
 	}
 
 	/**

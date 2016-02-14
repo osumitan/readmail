@@ -32,6 +32,13 @@ public abstract class BaseList<F extends BaseFrame, D> extends JList<D> {
 	}
 
 	/**
+	 * クリア
+	 */
+	public void clear() {
+		this.listModel.clear();
+	}
+
+	/**
 	 * 追加
 	 * @param data データ
 	 */
