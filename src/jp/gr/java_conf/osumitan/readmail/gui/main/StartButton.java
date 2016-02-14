@@ -48,15 +48,6 @@ public class StartButton extends BaseButton<MainFrame> {
 			MainThread mainThread = new MainThread(frame);
 			frame.setMainThread(mainThread);
 			mainThread.start();
-//			System.setProperty("webdriver.chrome.driver", "./driver/chromedriver");
-//			WebDriver drv = new ChromeDriver();
-//			drv.get("http://www.htmlhifive.com/conts/web/view/Main/WebHome");
-//			WebElement elm1 = drv.findElement(By.id("tutorialLinkOnMainVisual"));
-//			elm1.click();
-//			WebDriverWait wait = new WebDriverWait(drv, 10);
-//			WebElement elm2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("document-title")));
-//			super.frame.showMessage("title", elm2.getText());
-//			drv.quit();
 		}
 	}
 }

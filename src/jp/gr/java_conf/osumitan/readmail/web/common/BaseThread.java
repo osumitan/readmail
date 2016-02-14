@@ -23,7 +23,7 @@ public abstract class BaseThread extends Thread {
 	public void run() {
 		try {
 			// 準備
-			prepare();
+			preProcess();
 			// 実行開始
 			this.runningStatus = RunningStatus.RUNNING;
 			// 実行継続
@@ -45,6 +45,10 @@ public abstract class BaseThread extends Thread {
 			// 異常終了処理
 			onAbended(ex);
 		}
+		finally {
+			// 終了処理
+			postProcess();
+		}
 	}
 
 	/**
@@ -57,7 +61,7 @@ public abstract class BaseThread extends Thread {
 	/**
 	 * 準備
 	 */
-	protected abstract void prepare();
+	protected abstract void preProcess();
 
 	/**
 	 * メイン
@@ -79,6 +83,11 @@ public abstract class BaseThread extends Thread {
 	 * @param ex 例外
 	 */
 	protected abstract void onAbended(Throwable ex);
+
+	/**
+	 * 終了処理
+	 */
+	protected abstract void postProcess();
 
 	/**
 	 * 実行状態

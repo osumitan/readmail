@@ -5,7 +5,7 @@ import java.util.List;
 
 import jp.gr.java_conf.osumitan.readmail.gui.common.BaseTable;
 import jp.gr.java_conf.osumitan.readmail.gui.common.BaseTableModel;
-import jp.gr.java_conf.osumitan.readmail.web.Site;
+import jp.gr.java_conf.osumitan.readmail.web.site.Site;
 
 /**
  * サイト表

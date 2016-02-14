@@ -1,4 +1,4 @@
-package jp.gr.java_conf.osumitan.readmail.web;
+package jp.gr.java_conf.osumitan.readmail.web.site;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -21,10 +21,13 @@ public class Site {
 	private String domain;
 	/** ログインページ */
 	private String loginPage;
-	/** ログインID */
-	private String loginId;
-	/** ログインパスワード */
-	private String loginPassword;
+	/** ユーザ名 */
+	private String userName;
+	/** パスワード */
+	private String password;
+
+	/** デフォルト：ログインページ */
+	private static final String DEFAULT_LOGIN_PAGE = "pages/enter.php";
 
 	/**
 	 * サイトリスト生成
@@ -42,7 +45,10 @@ public class Site {
 	/**
 	 * コンストラクタ
 	 */
-	public Site() {}
+	public Site() {
+		// ログインページ
+		this.loginPage = DEFAULT_LOGIN_PAGE;
+	}
 
 	/**
 	 * @return サイト名
@@ -101,30 +107,30 @@ public class Site {
 	}
 
 	/**
-	 * @return ログインID
+	 * @return ユーザ名
 	 */
-	public String getLoginId() {
-		return loginId;
+	public String getUserName() {
+		return userName;
 	}
 
 	/**
-	 * @param loginId ログインID
+	 * @param userName ユーザ名
 	 */
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	/**
-	 * @return ログインパスワード
+	 * @return パスワード
 	 */
-	public String getLoginPassword() {
-		return loginPassword;
+	public String getPassword() {
+		return password;
 	}
 
 	/**
-	 * @param loginPassword ログインパスワード
+	 * @param password パスワード
 	 */
-	public void setLoginPassword(String loginPassword) {
-		this.loginPassword = loginPassword;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }
