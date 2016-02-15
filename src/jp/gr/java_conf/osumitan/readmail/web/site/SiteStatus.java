@@ -9,17 +9,19 @@ import jp.gr.java_conf.osumitan.readmail.web.main.MainThread;
  */
 public enum SiteStatus {
 
-	/** ログインページを開く */
-	OPEN_LOGIN_PAGE(OpenLoginPageThread::new),
 	/** ログインする */
 	LOGIN(LoginThread::new),
+	/** 報酬明細を開く */
+	EARNINGS(EarningsThread::new),
 	/** ログアウトする */
-	LOGOUT(null),
-	/** 終了 */
-	FINISHED(null);
+	LOGOUT(LogoutThread::new),
+	/** 正常終了 */
+	FINISHED(null),
+	/** 異常終了 */
+	ABENDED(null);
 
 	/** 初期ステータス */
-	public static final SiteStatus INITIAL_STATUS = OPEN_LOGIN_PAGE;
+	public static final SiteStatus INITIAL_STATUS = LOGIN;
 
 	/** サイトスレッドのコンストラクタ参照 */
 	private Function<MainThread, BaseSiteThread> constructor;

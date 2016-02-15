@@ -5,8 +5,8 @@ import java.util.function.Function;
 
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import jp.gr.java_conf.osumitan.readmail.gui.main.MainFrame;
 import jp.gr.java_conf.osumitan.readmail.web.common.BaseThread;
@@ -22,7 +22,7 @@ public class MainThread extends BaseThread {
 	/** フレーム */
 	private MainFrame frame;
 	/** ドライバ */
-	private WebDriver driver;
+	private RemoteWebDriver driver;
 	/** サイトインデックス */
 	private int siteIndex;
 	/** サイトステータス */
@@ -53,8 +53,8 @@ public class MainThread extends BaseThread {
 		// ドライバ生成
 		System.setProperty("webdriver.chrome.driver", "./driver/chromedriver");
 		this.driver = new ChromeDriver();
-		this.driver.manage().window().setSize(new Dimension(480, 360));
-		this.driver.manage().window().setPosition(new Point(840, 360));
+		this.driver.manage().window().setSize(new Dimension(800, 600));
+		this.driver.manage().window().setPosition(new Point(520, 120));
 		// サイトインデックス
 		this.siteIndex = 0;
 		// サイトステータス
@@ -168,7 +168,7 @@ public class MainThread extends BaseThread {
 	/**
 	 * @return ドライバ
 	 */
-	public WebDriver getDriver() {
+	public RemoteWebDriver getDriver() {
 		return driver;
 	}
 

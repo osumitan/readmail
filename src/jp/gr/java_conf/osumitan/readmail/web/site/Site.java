@@ -19,15 +19,27 @@ public class Site {
 	private String name;
 	/** ドメイン */
 	private String domain;
+	/** ページプレフィックス */
+	private String pagePrefix;
 	/** ログインページ */
 	private String loginPage;
 	/** ユーザ名 */
 	private String userName;
 	/** パスワード */
 	private String password;
+	/** 報酬明細ページ */
+	private String earningsPage;
+	/** ログアウトページ */
+	private String logoutPage;
 
+	/** デフォルト：ページプレフィックス */
+	private static final String DEFAULT_PAGE_PREFIX = "pages/";
 	/** デフォルト：ログインページ */
-	private static final String DEFAULT_LOGIN_PAGE = "pages/enter.php";
+	private static final String DEFAULT_LOGIN_PAGE = "enter.php";
+	/** デフォルト：報酬明細ページ */
+	private static final String DEFAULT_EARNINGS_PAGE = "earnings.php";
+	/** デフォルト：ログアウトページ */
+	private static final String DEFAULT_LOGOUT_PAGE = "index.php?username=LOGOUT&password=LOGOUT";
 
 	/**
 	 * サイトリスト生成
@@ -46,15 +58,16 @@ public class Site {
 	 * コンストラクタ
 	 */
 	public Site() {
+		// 選択
+		this.selected = true;
+		// ページプレフィックス
+		this.pagePrefix = DEFAULT_PAGE_PREFIX;
 		// ログインページ
 		this.loginPage = DEFAULT_LOGIN_PAGE;
-	}
-
-	/**
-	 * @return サイト名
-	 */
-	public String getName() {
-		return name;
+		// 報酬明細ページ
+		this.earningsPage = DEFAULT_EARNINGS_PAGE;
+		// ログアウトページ
+		this.logoutPage = DEFAULT_LOGOUT_PAGE;
 	}
 
 	/**
@@ -69,6 +82,13 @@ public class Site {
 	 */
 	public void setSelected(boolean selected) {
 		this.selected = selected;
+	}
+
+	/**
+	 * @return サイト名
+	 */
+	public String getName() {
+		return name;
 	}
 
 	/**
@@ -90,6 +110,20 @@ public class Site {
 	 */
 	public void setDomain(String domain) {
 		this.domain = domain;
+	}
+
+	/**
+	 * @return ページプレフィックス
+	 */
+	public String getPagePrefix() {
+		return pagePrefix;
+	}
+
+	/**
+	 * @param pagePrefix ページプレフィックス
+	 */
+	public void setPagePrefix(String pagePrefix) {
+		this.pagePrefix = pagePrefix;
 	}
 
 	/**
@@ -132,5 +166,33 @@ public class Site {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	/**
+	 * @return 報酬明細ページ
+	 */
+	public String getEarningsPage() {
+		return earningsPage;
+	}
+
+	/**
+	 * @param earningsPage 報酬明細ページ
+	 */
+	public void setEarningsPage(String earningsPage) {
+		this.earningsPage = earningsPage;
+	}
+
+	/**
+	 * @return ログアウトページ
+	 */
+	public String getLogoutPage() {
+		return logoutPage;
+	}
+
+	/**
+	 * @param logoutPage ログアウトページ
+	 */
+	public void setLogoutPage(String logoutPage) {
+		this.logoutPage = logoutPage;
 	}
 }
