@@ -50,6 +50,8 @@ public class MainThread extends BaseThread {
 		log("開始");
 		// 画面制御
 		setComponentEnabled(false);
+		// データリストクリア
+		frame.getSiteTable().clearDataList();
 		// ドライバ生成
 		System.setProperty("webdriver.chrome.driver", "./driver/chromedriver");
 		this.driver = new ChromeDriver();

@@ -84,11 +84,20 @@ public abstract class BaseSiteThread extends Thread {
 
 	/**
 	 * エレメントを探す
+	 * @param by By
+	 * @return エレメント
+	 */
+	protected WebElement findElement(By by) {
+		return this.driver.findElement(by);
+	}
+
+	/**
+	 * エレメントを探す
 	 * @param selector セレクタ
 	 * @return エレメント
 	 */
 	protected WebElement findElement(String selector) {
-		return this.driver.findElement(By.cssSelector(selector));
+		return findElement(By.cssSelector(selector));
 	}
 
 	/**

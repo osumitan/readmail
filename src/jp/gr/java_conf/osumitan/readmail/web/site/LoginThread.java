@@ -44,7 +44,7 @@ public class LoginThread extends BaseSiteThread {
 			// ログ
 			log("ログイン成功しました。");
 			// ステータス：報酬明細を開く
-			setSiteStatus(SiteStatus.EARNINGS);
+			setSiteStatus(SiteStatus.EARNINGS_BEFORE);
 		} else {
 			// ログ
 			log("ログイン失敗しました。");

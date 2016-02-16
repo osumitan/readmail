@@ -59,6 +59,15 @@ public class SiteTable extends BaseTable<MainFrame, Site> {
 	}
 
 	/**
+	 * データリストをクリア
+	 */
+	public void clearDataList() {
+		for(Site site : dataList) {
+			site.clear();
+		}
+	}
+
+	/**
 	 * テーブルモデル
 	 */
 	static class SiteTableModel extends BaseTableModel<Site> {
@@ -70,9 +79,6 @@ public class SiteTable extends BaseTable<MainFrame, Site> {
 		 * 列情報
 		 */
 		private static List<Column> COLUMN_LIST = new ArrayList<Column>();
-		static {
-
-		}
 
 		/**
 		 * コンストラクタ
@@ -82,9 +88,10 @@ public class SiteTable extends BaseTable<MainFrame, Site> {
 			super(dataList, COLUMN_LIST);
 			// 列情報
 			COLUMN_LIST.clear();
-			COLUMN_LIST.add(new Column("", Boolean.class, Site::isSelected));
-			COLUMN_LIST.add(new Column("ドメイン", String.class, Site::getDomain));
-			COLUMN_LIST.add(new Column("サイト名", String.class, Site::getName));
+			COLUMN_LIST.add(new Column("選択", 100, Boolean.class, Site::isSelected));
+			COLUMN_LIST.add(new Column("サイト名", 500, String.class, Site::getName));
+			COLUMN_LIST.add(new Column("処理前報酬", 200, Double.class, Site::getEarningsBefore));
+			COLUMN_LIST.add(new Column("処理後報酬", 200, Double.class, Site::getEarningsAfter));
 		}
 	}
 }

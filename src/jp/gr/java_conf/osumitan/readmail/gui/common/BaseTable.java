@@ -3,6 +3,7 @@ package jp.gr.java_conf.osumitan.readmail.gui.common;
 import java.util.List;
 
 import javax.swing.JTable;
+import javax.swing.table.TableColumnModel;
 
 /**
  * テーブルの基底クラス
@@ -29,7 +30,13 @@ public abstract class BaseTable<F extends BaseFrame, D> extends JTable {
 		// データリスト
 		this.dataList = dataList;
 		// テーブルモデル設定
-		setModel(createTableModel(dataList));
+		BaseTableModel<D> model = createTableModel(dataList);
+		setModel(model);
+		// 列幅設定
+		TableColumnModel tcm = getColumnModel();
+		for(int i = 0 ; i < tcm.getColumnCount() ; i++) {
+			tcm.getColumn(i).setPreferredWidth(model.getColumnList().get(i).getWidth());
+		}
 	}
 
 	/**

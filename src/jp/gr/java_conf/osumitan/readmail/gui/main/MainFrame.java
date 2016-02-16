@@ -44,7 +44,7 @@ public class MainFrame extends BaseFrame {
 		super("readmail");
 
 		// サイズ
-		setSize(800, 600);
+		setSize(600, 600);
 
 		// メインスレッド
 		this.mainThread = null;

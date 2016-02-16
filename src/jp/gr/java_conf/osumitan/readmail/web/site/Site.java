@@ -17,6 +17,10 @@ public class Site {
 	private boolean selected;
 	/** サイト名 */
 	private String name;
+	/** 処理前報酬 */
+	private Double earningsBefore;
+	/** 処理後報酬 */
+	private Double earningsAfter;
 	/** ドメイン */
 	private String domain;
 	/** ページプレフィックス */
@@ -29,6 +33,10 @@ public class Site {
 	private String password;
 	/** 報酬明細ページ */
 	private String earningsPage;
+	/** 報酬パス */
+	private String earningsPath;
+	/** 報酬正規表現 */
+	private String earningsRegexp;
 	/** ログアウトページ */
 	private String logoutPage;
 
@@ -38,6 +46,10 @@ public class Site {
 	private static final String DEFAULT_LOGIN_PAGE = "enter.php";
 	/** デフォルト：報酬明細ページ */
 	private static final String DEFAULT_EARNINGS_PAGE = "earnings.php";
+	/** デフォルト：報酬パス */
+	private static final String DEFAULT_EARNINGS_PATH = "//*[contains(text(),'合計ポイント')]/ancestor::tr[1]/td[2]//text()/..";
+	/** デフォルト：報酬正規表現 */
+	private static final String DEFAULT_EARNINGS_REGEXP = "(\\d+\\.\\d+)";
 	/** デフォルト：ログアウトページ */
 	private static final String DEFAULT_LOGOUT_PAGE = "index.php?username=LOGOUT&password=LOGOUT";
 
@@ -66,8 +78,24 @@ public class Site {
 		this.loginPage = DEFAULT_LOGIN_PAGE;
 		// 報酬明細ページ
 		this.earningsPage = DEFAULT_EARNINGS_PAGE;
+		// 報酬パス
+		this.earningsPath = DEFAULT_EARNINGS_PATH;
+		// 報酬正規表現
+		this.earningsRegexp = DEFAULT_EARNINGS_REGEXP;
 		// ログアウトページ
 		this.logoutPage = DEFAULT_LOGOUT_PAGE;
+		// クリア
+		this.clear();
+	}
+
+	/**
+	 * クリア
+	 */
+	public void clear() {
+		// 処理前報酬
+		this.earningsBefore = null;
+		// 処理後報酬
+		this.earningsAfter = null;
 	}
 
 	/**
@@ -96,6 +124,34 @@ public class Site {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return 処理前報酬
+	 */
+	public Double getEarningsBefore() {
+		return earningsBefore;
+	}
+
+	/**
+	 * @param earningsBefore 処理前報酬
+	 */
+	public void setEarningsBefore(Double earningsBefore) {
+		this.earningsBefore = earningsBefore;
+	}
+
+	/**
+	 * @return 処理後報酬
+	 */
+	public Double getEarningsAfter() {
+		return earningsAfter;
+	}
+
+	/**
+	 * @param earningsAfter 処理後報酬
+	 */
+	public void setEarningsAfter(Double earningsAfter) {
+		this.earningsAfter = earningsAfter;
 	}
 
 	/**
@@ -180,6 +236,34 @@ public class Site {
 	 */
 	public void setEarningsPage(String earningsPage) {
 		this.earningsPage = earningsPage;
+	}
+
+	/**
+	 * @return 報酬パス
+	 */
+	public String getEarningsPath() {
+		return earningsPath;
+	}
+
+	/**
+	 * @param earningsPath 報酬パス
+	 */
+	public void setEarningsPath(String earningsPath) {
+		this.earningsPath = earningsPath;
+	}
+
+	/**
+	 * @return 報酬正規表現
+	 */
+	public String getEarningsRegexp() {
+		return earningsRegexp;
+	}
+
+	/**
+	 * @param earningsRegexp 報酬正規表現
+	 */
+	public void setEarningsRegexp(String earningsRegexp) {
+		this.earningsRegexp = earningsRegexp;
 	}
 
 	/**

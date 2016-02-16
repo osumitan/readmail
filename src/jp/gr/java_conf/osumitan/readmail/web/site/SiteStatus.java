@@ -11,8 +11,10 @@ public enum SiteStatus {
 
 	/** ログインする */
 	LOGIN(LoginThread::new),
-	/** 報酬明細を開く */
-	EARNINGS(EarningsThread::new),
+	/** 処理前報酬を取得する */
+	EARNINGS_BEFORE(EarningsBeforeThread::new),
+	/** 処理後報酬を取得する */
+	EARNINGS_AFTER(EarningsAfterThread::new),
 	/** ログアウトする */
 	LOGOUT(LogoutThread::new),
 	/** 正常終了 */

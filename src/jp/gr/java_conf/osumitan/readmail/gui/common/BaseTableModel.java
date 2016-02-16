@@ -89,12 +89,21 @@ public abstract class BaseTableModel<D> extends AbstractTableModel {
 	}
 
 	/**
+	 * @return 列情報リスト
+	 */
+	public List<Column> getColumnList() {
+		return columnList;
+	}
+
+	/**
 	 * 列情報
 	 */
 	public class Column {
 
 		/** 列名 */
 		private String name;
+		/** 列幅 */
+		private int width;
 		/** 列値クラス */
 		private Class<?> valueClass;
 		/** 列値Getter */
@@ -103,12 +112,15 @@ public abstract class BaseTableModel<D> extends AbstractTableModel {
 		/**
 		 * コンストラクタ
 		 * @param name 列名
+		 * @param width 列幅
 		 * @param valueClass 列値クラス
 		 * @param getter 列値Getter
 		 */
-		public Column(String name, Class<?> valueClass, Function<D, ?> getter) {
+		public Column(String name, int width, Class<?> valueClass, Function<D, ?> getter) {
 			// 列名
 			this.name = name;
+			// 列幅
+			this.width = width;
 			// 列値クラス
 			this.valueClass = valueClass;
 			// 列値Getter
@@ -120,6 +132,13 @@ public abstract class BaseTableModel<D> extends AbstractTableModel {
 		 */
 		public String getName() {
 			return name;
+		}
+
+		/**
+		 * @return 列幅
+		 */
+		public int getWidth() {
+			return width;
 		}
 
 		/**
