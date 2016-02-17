@@ -29,8 +29,6 @@ public class EarningsAfterThread extends BaseSiteThread {
 		log("報酬明細を開いています…");
 		// 報酬明細を開く
 		navigate(site.getEarningsPage());
-		// ページ読み込み完了を待つ
-		waitLoaded();
 		// 報酬を取得
 		WebElement element = findElement(By.xpath(site.getEarningsPath()));
 		Pattern p = Pattern.compile(site.getEarningsRegexp());

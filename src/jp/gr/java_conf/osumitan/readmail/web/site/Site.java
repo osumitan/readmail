@@ -37,6 +37,20 @@ public class Site {
 	private String earningsPath;
 	/** 報酬正規表現 */
 	private String earningsRegexp;
+	/** クリックポイントページ */
+	private String clickPointPage;
+	/** クリックポイントリンク */
+	private String clickPointLink;
+	/** 数字認証画像 */
+	private String numberAuthImage;
+	/** 数字認証入力項目 */
+	private String numberAuthInput;
+	/** ポイント取得フレーム */
+	private String pointGetFrame;
+	/** ポイント取得メッセージ */
+	private String pointGetMessage;
+	/** ポイント取得メッセージパス */
+	private String pointGetMessagePath;
 	/** ログアウトページ */
 	private String logoutPage;
 
@@ -50,6 +64,20 @@ public class Site {
 	private static final String DEFAULT_EARNINGS_PATH = "//*[contains(text(),'合計ポイント')]/ancestor::tr[1]/td[2]//text()/..";
 	/** デフォルト：報酬正規表現 */
 	private static final String DEFAULT_EARNINGS_REGEXP = "(\\d+\\.\\d+)";
+	/** デフォルト：クリックポイントページ */
+	private static final String DEFAULT_CLICK_POINT_PAGE = "ptc.php";
+	/** デフォルト：クリックポイントリンク */
+	private static final String DEFAULT_CLICK_POINT_LINK = "scripts/runner.php?PA=";
+	/** デフォルト：数字認証画像 */
+	private static final String DEFAULT_NUMBER_AUTH_IMAGE = "scripts/runner.php?TN=";
+	/** デフォルト：数字認証入力項目 */
+	private static final String DEFAULT_NUMBER_AUTH_INPUT = "PI";
+	/** デフォルト：ポイント取得フレーム */
+	private static final String DEFAULT_POINT_GET_FRAME = "timerfrm";
+	/** デフォルト：ポイント取得メッセージ */
+	private static final String DEFAULT_POINT_GET_MESSAGE = "報酬が加算されました";
+	/** デフォルト：ポイント取得メッセージパス */
+	private static final String DEFAULT_POINT_GET_MESSAGE_PATH = "//*[contains(text(),'%s')]/..";
 	/** デフォルト：ログアウトページ */
 	private static final String DEFAULT_LOGOUT_PAGE = "index.php?username=LOGOUT&password=LOGOUT";
 
@@ -82,6 +110,20 @@ public class Site {
 		this.earningsPath = DEFAULT_EARNINGS_PATH;
 		// 報酬正規表現
 		this.earningsRegexp = DEFAULT_EARNINGS_REGEXP;
+		// クリックポイントページ
+		this.clickPointPage = DEFAULT_CLICK_POINT_PAGE;
+		// クリックポイントリンク
+		this.clickPointLink = DEFAULT_CLICK_POINT_LINK;
+		// 数字認証画像
+		this.numberAuthImage = DEFAULT_NUMBER_AUTH_IMAGE;
+		// 数字認証入力項目
+		this.numberAuthInput = DEFAULT_NUMBER_AUTH_INPUT;
+		// ポイント取得フレーム
+		this.pointGetFrame = DEFAULT_POINT_GET_FRAME;
+		// ポイント取得メッセージ
+		this.pointGetMessage = DEFAULT_POINT_GET_MESSAGE;
+		// ポイント取得メッセージパス
+		this.pointGetMessagePath = DEFAULT_POINT_GET_MESSAGE_PATH;
 		// ログアウトページ
 		this.logoutPage = DEFAULT_LOGOUT_PAGE;
 		// クリア
@@ -264,6 +306,104 @@ public class Site {
 	 */
 	public void setEarningsRegexp(String earningsRegexp) {
 		this.earningsRegexp = earningsRegexp;
+	}
+
+	/**
+	 * @return クリックポイントページ
+	 */
+	public String getClickPointPage() {
+		return clickPointPage;
+	}
+
+	/**
+	 * @param clickPointPage クリックポイントページ
+	 */
+	public void setClickPointPage(String clickPointPage) {
+		this.clickPointPage = clickPointPage;
+	}
+
+	/**
+	 * @return クリックポイントリンク
+	 */
+	public String getClickPointLink() {
+		return clickPointLink;
+	}
+
+	/**
+	 * @param clickPointLink クリックポイントリンク
+	 */
+	public void setClickPointLink(String clickPointLink) {
+		this.clickPointLink = clickPointLink;
+	}
+
+	/**
+	 * @return 数字認証画像
+	 */
+	public String getNumberAuthImage() {
+		return numberAuthImage;
+	}
+
+	/**
+	 * @param numberAuthImage 数字認証画像
+	 */
+	public void setNumberAuthImage(String numberAuthImage) {
+		this.numberAuthImage = numberAuthImage;
+	}
+
+	/**
+	 * @return 数字認証入力項目
+	 */
+	public String getNumberAuthInput() {
+		return numberAuthInput;
+	}
+
+	/**
+	 * @param numberAuthInput 数字認証入力項目
+	 */
+	public void setNumberAuthInput(String numberAuthInput) {
+		this.numberAuthInput = numberAuthInput;
+	}
+
+	/**
+	 * @return ポイント取得フレーム
+	 */
+	public String getPointGetFrame() {
+		return pointGetFrame;
+	}
+
+	/**
+	 * @param pointGetFrame ポイント取得フレーム
+	 */
+	public void setPointGetFrame(String pointGetFrame) {
+		this.pointGetFrame = pointGetFrame;
+	}
+
+	/**
+	 * @return ポイント取得メッセージ
+	 */
+	public String getPointGetMessage() {
+		return pointGetMessage;
+	}
+
+	/**
+	 * @param pointGetMessage ポイント取得メッセージ
+	 */
+	public void setPointGetMessage(String pointGetMessage) {
+		this.pointGetMessage = pointGetMessage;
+	}
+
+	/**
+	 * @return ポイント取得メッセージパス
+	 */
+	public String getPointGetMessagePath() {
+		return pointGetMessagePath;
+	}
+
+	/**
+	 * @param pointGetMessagePath ポイント取得メッセージパス
+	 */
+	public void setPointGetMessagePath(String pointGetMessagePath) {
+		this.pointGetMessagePath = pointGetMessagePath;
 	}
 
 	/**

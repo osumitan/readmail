@@ -1,5 +1,9 @@
 package jp.gr.java_conf.osumitan.readmail.web.site;
 
+import java.util.concurrent.TimeUnit;
+
+import javax.swing.JOptionPane;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -54,11 +58,14 @@ public abstract class BaseSiteThread extends Thread {
 	}
 
 	/**
-	 * ページ遷移
-	 * @param page ページ
+	 * 条件成立まで待つ
+	 * @param isTrue 条件判定処理
 	 */
-	protected void navigate(String page) {
-		this.driver.get(String.format("http://%s/%s%s", this.site.getDomain(), this.site.getPagePrefix(), page));
+	protected void until(Function<RemoteWebDriver, Boolean> isTrue) {
+		FluentWait<RemoteWebDriver> wait = new FluentWait<RemoteWebDriver>(this.driver);
+		wait.withTimeout(3600L, TimeUnit.SECONDS);
+		wait.pollingEvery(100L, TimeUnit.MILLISECONDS);
+		wait.until(isTrue);
 	}
 
 	/**
@@ -66,11 +73,44 @@ public abstract class BaseSiteThread extends Thread {
 	 */
 	protected void waitLoaded() {
 		// document.readyState が complete であること
-		FluentWait<RemoteWebDriver> wait = new FluentWait<RemoteWebDriver>(this.driver);
-		Function<RemoteWebDriver, Boolean> isTrue = (driver) -> {
-			return Boolean.TRUE.equals(this.driver.executeScript(SCRIPT_WAIT_LOADED));
-		};
-		wait.until(isTrue);
+		until((driver) -> Boolean.TRUE.equals(this.driver.executeScript(SCRIPT_WAIT_LOADED)));
+	}
+
+	/**
+	 * ポイント獲得を待つ
+	 */
+	protected void waitPointGet() {
+		// 報酬獲得メッセージ表示まで待つ
+		until((driver) -> existsElement(By.xpath(String.format(site.getPointGetMessagePath(), site.getPointGetMessage()))));
+	}
+
+	/**
+	 * GET
+	 * @param url URL
+	 */
+	protected void get(String url) {
+		// ページ遷移
+		this.driver.get(url);
+		// ページ読み込み完了を待つ
+		waitLoaded();
+	}
+
+	/**
+	 * ページ遷移
+	 * @param page ページ
+	 */
+	protected void navigate(String page) {
+		// ページ遷移
+		get(String.format("http://%s/%s%s", this.site.getDomain(), this.site.getPagePrefix(), page));
+	}
+
+	/**
+	 * エレメントが存在するか
+	 * @param by By
+	 * @return エレメントが存在するか
+	 */
+	protected boolean existsElement(By by) {
+		return !this.driver.findElements(by).isEmpty();
 	}
 
 	/**
@@ -79,7 +119,7 @@ public abstract class BaseSiteThread extends Thread {
 	 * @return エレメントが存在するか
 	 */
 	protected boolean existsElement(String selector) {
-		return !this.driver.findElements(By.cssSelector(selector)).isEmpty();
+		return existsElement(By.cssSelector(selector));
 	}
 
 	/**
@@ -116,7 +156,7 @@ public abstract class BaseSiteThread extends Thread {
 	protected void setValue(String selector, String value) {
 		WebElement element = findElement(selector);
 		element.clear();
-		element.sendKeys(value);
+		element.sendKeys(value == null ? "" : value);
 	}
 
 	/**
@@ -129,5 +169,44 @@ public abstract class BaseSiteThread extends Thread {
 		if(checked != element.isSelected()) {
 			element.click();
 		}
+	}
+
+	/**
+	 * ポイント獲得まで待つ
+	 */
+	protected void waitUntilPointGet() {
+		// 数字認証
+		boolean b = false;
+		while(!b) {
+			// フレームがあるか
+			b = existsElement("frameset");
+			if(!b) {
+				// 数字認証画像があるか
+				if(existsElement(String.format("img[src*='%s']", site.getNumberAuthImage()))) {
+					// ログ
+					log("数字認証を要求されています…");
+					// 数字を入力
+					String n = JOptionPane.showInputDialog(mainThread.getFrame(), "数字認証");
+					setValue(String.format("input[name='%s']", site.getNumberAuthInput()), n);
+					click("input[type='submit']");
+					// ログ
+					log("数字認証を入力しました。");
+					// ページ読み込み完了を待つ
+					waitLoaded();
+				} else {
+					// ログ
+					log("ポイント獲得失敗");
+					return;
+				}
+			}
+		}
+		// ログ
+		log("ポイント獲得を待っています…");
+		// ポイント獲得まで待つ
+		driver.switchTo().frame(site.getPointGetFrame());
+		waitPointGet();
+		driver.switchTo().window(driver.getWindowHandle());
+		// ログ
+		log("ポイントを獲得しました。");
 	}
 }

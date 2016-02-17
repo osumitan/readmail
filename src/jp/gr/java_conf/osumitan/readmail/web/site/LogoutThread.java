@@ -23,8 +23,6 @@ public class LogoutThread extends BaseSiteThread {
 		log("ログアウトしています…");
 		// ログアウト
 		navigate(site.getLogoutPage());
-		// ページ読み込み完了を待つ
-		waitLoaded();
 		// ログ
 		log("ログアウトしました。");
 		// ステータス：正常終了

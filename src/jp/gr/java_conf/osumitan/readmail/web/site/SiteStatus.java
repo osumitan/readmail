@@ -13,6 +13,8 @@ public enum SiteStatus {
 	LOGIN(LoginThread::new),
 	/** 処理前報酬を取得する */
 	EARNINGS_BEFORE(EarningsBeforeThread::new),
+	/** クリックポイント */
+	CLICK_POINT(ClickPointThread::new),
 	/** 処理後報酬を取得する */
 	EARNINGS_AFTER(EarningsAfterThread::new),
 	/** ログアウトする */

@@ -23,8 +23,6 @@ public class LoginThread extends BaseSiteThread {
 		log("ログインページを開いています…");
 		// ログインページを開く
 		navigate(site.getLoginPage());
-		// ページ読み込み完了を待つ
-		waitLoaded();
 		// ログ
 		log("ログインしています…");
 		// ユーザ名
@@ -43,7 +41,7 @@ public class LoginThread extends BaseSiteThread {
 		if(existsElement(String.format("a[href*='%s']", site.getEarningsPage()))) {
 			// ログ
 			log("ログイン成功しました。");
-			// ステータス：報酬明細を開く
+			// ステータス：処理前報酬を取得する
 			setSiteStatus(SiteStatus.EARNINGS_BEFORE);
 		} else {
 			// ログ

@@ -29,8 +29,6 @@ public class EarningsBeforeThread extends BaseSiteThread {
 		log("報酬明細を開いています…");
 		// 報酬明細を開く
 		navigate(site.getEarningsPage());
-		// ページ読み込み完了を待つ
-		waitLoaded();
 		// 報酬を取得
 		WebElement element = findElement(By.xpath(site.getEarningsPath()));
 		Pattern p = Pattern.compile(site.getEarningsRegexp());
@@ -39,7 +37,7 @@ public class EarningsBeforeThread extends BaseSiteThread {
 		mainThread.getFrame().getSiteTable().repaint();
 		// ログ
 		log("処理前報酬を取得しました。");
-		// ステータス：処理後報酬を取得する
-		setSiteStatus(SiteStatus.EARNINGS_AFTER);
+		// ステータス：クリックポイント
+		setSiteStatus(SiteStatus.CLICK_POINT);
 	}
 }
