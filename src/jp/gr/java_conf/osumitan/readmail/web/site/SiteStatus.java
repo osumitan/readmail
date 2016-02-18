@@ -15,6 +15,8 @@ public enum SiteStatus {
 	EARNINGS_BEFORE(EarningsBeforeThread::new),
 	/** クリックポイント */
 	CLICK_POINT(ClickPointThread::new),
+	/** 受信箱 */
+	INBOX(InboxThread::new),
 	/** 処理後報酬を取得する */
 	EARNINGS_AFTER(EarningsAfterThread::new),
 	/** ログアウトする */

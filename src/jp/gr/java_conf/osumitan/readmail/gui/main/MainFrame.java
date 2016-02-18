@@ -88,6 +88,22 @@ public class MainFrame extends BaseFrame {
 	}
 
 	/**
+	 * 例外ログ出力
+	 * @param ex 例外
+	 */
+	public void log(Throwable ex) {
+		log(ex.toString());
+		for(StackTraceElement st : ex.getStackTrace()) {
+			log(st.toString());
+		}
+		Throwable cause = ex.getCause();
+		if(cause != null) {
+			log("cause...");
+			log(cause);
+		}
+	}
+
+	/**
 	 * @return メインスレッド
 	 */
 	public MainThread getMainThread() {

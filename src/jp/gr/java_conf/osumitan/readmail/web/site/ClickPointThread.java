@@ -32,15 +32,15 @@ public class ClickPointThread extends BaseSiteThread {
 			// ログ
 			log("クリックポイントを開いています…");
 			// クリックポイントを開く
-			WebElement a = findElement(String.format("a[href*='%s']", site.getClickPointLink()));
-			get(a.getAttribute("href"));
+			WebElement cp = findElement(String.format("a[href*='%s']", site.getClickPointLink()));
+			get(cp.getAttribute("href"));
 			// ポイント獲得まで待つ
 			waitUntilPointGet();
 		} else {
 			// ログ
 			log("クリックポイントが終了しました。");
-			//TODO ステータス：処理後報酬を取得する
-			setSiteStatus(SiteStatus.EARNINGS_AFTER);
+			// ステータス：受信箱
+			setSiteStatus(SiteStatus.INBOX);
 		}
 	}
 }

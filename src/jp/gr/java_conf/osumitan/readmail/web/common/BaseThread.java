@@ -7,6 +7,8 @@ public abstract class BaseThread extends Thread {
 
 	/** 実行状態 */
 	protected RunningStatus runningStatus;
+	/** サブスレッドの例外 */
+	protected Throwable subThreadThrowable;
 
 	/**
 	 * コンストラクタ
@@ -22,12 +24,18 @@ public abstract class BaseThread extends Thread {
 	@Override
 	public void run() {
 		try {
+			// サブスレッドの例外をクリア
+			this.subThreadThrowable = null;
 			// 準備
 			preProcess();
 			// 実行開始
 			this.runningStatus = RunningStatus.RUNNING;
 			// 実行継続
 			while(RunningStatus.RUNNING.equals(this.runningStatus)) {
+				// サブスレッドの例外があったら異常終了
+				if(this.subThreadThrowable != null) {
+					throw new RuntimeException(this.subThreadThrowable);
+				}
 				// メイン処理
 				main();
 				// 100msウェイト
@@ -82,7 +90,10 @@ public abstract class BaseThread extends Thread {
 	 * 異常終了時処理
 	 * @param ex 例外
 	 */
-	protected abstract void onAbended(Throwable ex);
+	protected void onAbended(Throwable ex) {
+		// 例外をログ出力
+		ex.printStackTrace();
+	}
 
 	/**
 	 * 終了処理

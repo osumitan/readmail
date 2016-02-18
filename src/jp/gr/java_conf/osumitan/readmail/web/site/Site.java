@@ -41,6 +41,16 @@ public class Site {
 	private String clickPointPage;
 	/** クリックポイントリンク */
 	private String clickPointLink;
+	/** 受信箱ページ */
+	private String inboxPage;
+	/** 受信箱メールリンク */
+	private String inboxMailLink;
+	/** 受信箱ポイントリンク */
+	private String inboxPointLink;
+	/** 受信箱メール削除チェック */
+	private String inboxMailDeleteCheck;
+	/** 受信箱メール削除ボタン */
+	private String inboxMailDeleteButton;
 	/** 数字認証画像 */
 	private String numberAuthImage;
 	/** 数字認証入力項目 */
@@ -68,6 +78,16 @@ public class Site {
 	private static final String DEFAULT_CLICK_POINT_PAGE = "ptc.php";
 	/** デフォルト：クリックポイントリンク */
 	private static final String DEFAULT_CLICK_POINT_LINK = "scripts/runner.php?PA=";
+	/** デフォルト：受信箱ページ */
+	private static final String DEFAULT_INBOX_PAGE = "inbox.php";
+	/** デフォルト：受信箱メールリンク */
+	private static final String DEFAULT_INBOX_MAIL_LINK = "scripts/runner.php?IM=";
+	/** デフォルト：受信箱ポイントリンク */
+	private static final String DEFAULT_INBOX_POINT_LINK = "scripts/runner.php?EA=";
+	/** デフォルト：受信箱メール削除チェック */
+	private static final String DEFAULT_INBOX_DELETE_CHECK = "//*[contains(@href,'%s')]/ancestor::tr[1]//input[contains(@type,'checkbox')]";
+	/** デフォルト：受信箱メール削除ボタン */
+	private static final String DEFAULT_INBOX_DELETE_BUTTON = "削除";
 	/** デフォルト：数字認証画像 */
 	private static final String DEFAULT_NUMBER_AUTH_IMAGE = "scripts/runner.php?TN=";
 	/** デフォルト：数字認証入力項目 */
@@ -114,6 +134,16 @@ public class Site {
 		this.clickPointPage = DEFAULT_CLICK_POINT_PAGE;
 		// クリックポイントリンク
 		this.clickPointLink = DEFAULT_CLICK_POINT_LINK;
+		// 受信箱ページ
+		this.inboxPage = DEFAULT_INBOX_PAGE;
+		// 受信箱メールリンク
+		this.inboxMailLink = DEFAULT_INBOX_MAIL_LINK;
+		// 受信箱ポイントリンク
+		this.inboxPointLink = DEFAULT_INBOX_POINT_LINK;
+		// 受信箱メール削除チェック
+		this.inboxMailDeleteCheck = DEFAULT_INBOX_DELETE_CHECK;
+		// 受信箱メール削除ボタン
+		this.inboxMailDeleteButton = DEFAULT_INBOX_DELETE_BUTTON;
 		// 数字認証画像
 		this.numberAuthImage = DEFAULT_NUMBER_AUTH_IMAGE;
 		// 数字認証入力項目
@@ -334,6 +364,76 @@ public class Site {
 	 */
 	public void setClickPointLink(String clickPointLink) {
 		this.clickPointLink = clickPointLink;
+	}
+
+	/**
+	 * @return i受信箱ページ
+	 */
+	public String getInboxPage() {
+		return inboxPage;
+	}
+
+	/**
+	 * @param inboxPage 受信箱ページ
+	 */
+	public void setInboxPage(String inboxPage) {
+		this.inboxPage = inboxPage;
+	}
+
+	/**
+	 * @return 受信箱メールリンク
+	 */
+	public String getInboxMailLink() {
+		return inboxMailLink;
+	}
+
+	/**
+	 * @param inboxMailLink 受信箱メールリンク
+	 */
+	public void setInboxMailLink(String inboxMailLink) {
+		this.inboxMailLink = inboxMailLink;
+	}
+
+	/**
+	 * @return 受信箱ポイントリンク
+	 */
+	public String getInboxPointLink() {
+		return inboxPointLink;
+	}
+
+	/**
+	 * @param inboxPointLink 受信箱ポイントリンク
+	 */
+	public void setInboxPointLink(String inboxPointLink) {
+		this.inboxPointLink = inboxPointLink;
+	}
+
+	/**
+	 * @return 受信箱メール削除チェック
+	 */
+	public String getInboxMailDeleteCheck() {
+		return inboxMailDeleteCheck;
+	}
+
+	/**
+	 * @param inboxMailDeleteCheck 受信箱メール削除チェック
+	 */
+	public void setInboxMailDeleteCheck(String inboxMailDeleteCheck) {
+		this.inboxMailDeleteCheck = inboxMailDeleteCheck;
+	}
+
+	/**
+	 * @return 受信箱メール削除ボタン
+	 */
+	public String getInboxMailDeleteButton() {
+		return inboxMailDeleteButton;
+	}
+
+	/**
+	 * @param inboxMailDeleteButton 受信箱メール削除ボタン
+	 */
+	public void setInboxMailDeleteButton(String inboxMailDeleteButton) {
+		this.inboxMailDeleteButton = inboxMailDeleteButton;
 	}
 
 	/**

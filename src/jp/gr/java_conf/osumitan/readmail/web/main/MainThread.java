@@ -1,5 +1,6 @@
 package jp.gr.java_conf.osumitan.readmail.web.main;
 
+import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.List;
 import java.util.function.Function;
 
@@ -17,7 +18,7 @@ import jp.gr.java_conf.osumitan.readmail.web.site.SiteStatus;
 /**
  * メインスレッド
  */
-public class MainThread extends BaseThread {
+public class MainThread extends BaseThread implements UncaughtExceptionHandler {
 
 	/** フレーム */
 	private MainFrame frame;
@@ -43,6 +44,7 @@ public class MainThread extends BaseThread {
 	/**
 	 * 準備
 	 */
+	@Override
 	protected void preProcess() {
 		// ログクリア
 		this.frame.clearLog();
@@ -96,12 +98,14 @@ public class MainThread extends BaseThread {
 		}
 		// サイトスレッド実行
 		this.siteThread = constructor.apply(this);
+		this.siteThread.setUncaughtExceptionHandler(this);
 		this.siteThread.start();
 	}
 
 	/**
 	 * 中断時処理
 	 */
+	@Override
 	protected void onAborted() {
 		// ログ
 		log("中断");
@@ -112,6 +116,7 @@ public class MainThread extends BaseThread {
 	/**
 	 * 正常終了時処理
 	 */
+	@Override
 	protected void onFinished() {
 		// ログ
 		log("正常終了");
@@ -123,9 +128,11 @@ public class MainThread extends BaseThread {
 	 * 異常終了時処理
 	 * @param ex 例外
 	 */
+	@Override
 	protected void onAbended(Throwable ex) {
 		// ログ
-		log(String.format("異常終了:%s", String.valueOf(ex)));
+		log(ex);
+		log(String.format("異常終了"));
 		// 画面制御
 		setComponentEnabled(true);
 	}
@@ -133,10 +140,21 @@ public class MainThread extends BaseThread {
 	/**
 	 * 終了処理
 	 */
+	@Override
 	protected void postProcess() {
 		// ドライバ破棄
 //TODO ブラウザを閉じるのをやめておく
 //		this.driver.quit();
+	}
+
+	/**
+	 * サブスレッドの例外をキャッチ
+	 * @param subThread サブスレッド
+	 * @param ex 例外
+	 */
+	@Override
+	public void uncaughtException(Thread subThread, Throwable ex) {
+		this.subThreadThrowable = ex;
 	}
 
 	/**
@@ -158,6 +176,14 @@ public class MainThread extends BaseThread {
 	 */
 	private void log(String message) {
 		this.frame.log(message);
+	}
+
+	/**
+	 * 例外をログ出力
+	 * @param ex 例外
+	 */
+	private void log(Throwable ex) {
+		this.frame.log(ex);
 	}
 
 	/**

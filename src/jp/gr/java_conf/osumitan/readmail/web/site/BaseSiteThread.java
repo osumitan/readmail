@@ -26,7 +26,7 @@ public abstract class BaseSiteThread extends Thread {
 	protected Site site;
 
 	/** ページ読み込み完了を待つスクリプト */
-	private static final String SCRIPT_WAIT_LOADED = "return document && document.readyState && document.readyState == \"complete\";";
+	private static final String SCRIPT_WAIT_LOADED = "return document && document.readyState && (document.readyState == \"interactive\" || document.readyState == \"complete\");";
 
 	/**
 	 * コンストラクタ
@@ -72,7 +72,7 @@ public abstract class BaseSiteThread extends Thread {
 	 * ページ読み込み完了を待つ
 	 */
 	protected void waitLoaded() {
-		// document.readyState が complete であること
+		// document.readyState が interactive または complete であること
 		until((driver) -> Boolean.TRUE.equals(this.driver.executeScript(SCRIPT_WAIT_LOADED)));
 	}
 
@@ -142,10 +142,29 @@ public abstract class BaseSiteThread extends Thread {
 
 	/**
 	 * クリックする
+	 * @param by By
+	 */
+	protected void click(By by) {
+		findElement(by).click();
+	}
+
+	/**
+	 * クリックする
 	 * @param selector セレクタ
 	 */
 	protected void click(String selector) {
-		findElement(selector).click();
+		click(By.cssSelector(selector));
+	}
+
+	/**
+	 * 値を設定する
+	 * @param by By
+	 * @param value 値
+	 */
+	protected void setValue(By by, String value) {
+		WebElement element = findElement(by);
+		element.clear();
+		element.sendKeys(value == null ? "" : value);
 	}
 
 	/**
@@ -154,9 +173,19 @@ public abstract class BaseSiteThread extends Thread {
 	 * @param value 値
 	 */
 	protected void setValue(String selector, String value) {
-		WebElement element = findElement(selector);
-		element.clear();
-		element.sendKeys(value == null ? "" : value);
+		setValue(By.cssSelector(selector), value);
+	}
+
+	/**
+	 * チェック状態を設定する
+	 * @param by By
+	 * @param checked チェック状態
+	 */
+	protected void setChecked(By by, boolean checked) {
+		WebElement element = findElement(by);
+		if(checked != element.isSelected()) {
+			element.click();
+		}
 	}
 
 	/**
@@ -165,10 +194,7 @@ public abstract class BaseSiteThread extends Thread {
 	 * @param checked チェック状態
 	 */
 	protected void setChecked(String selector, boolean checked) {
-		WebElement element = findElement(selector);
-		if(checked != element.isSelected()) {
-			element.click();
-		}
+		setChecked(By.cssSelector(selector), checked);
 	}
 
 	/**
