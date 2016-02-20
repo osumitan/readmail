@@ -41,8 +41,14 @@ public class LoginThread extends BaseSiteThread {
 		if(existsElement(String.format("a[href*='%s']", site.getEarningsPage()))) {
 			// ログ
 			log("ログイン成功しました。");
-			// ステータス：処理前報酬を取得する
-			setSiteStatus(SiteStatus.EARNINGS_BEFORE);
+			// ステータス
+			if(mainThread.getFrame().getLoginOnlyCheck().isSelected()) {
+				// ステータス：正常終了
+				setSiteStatus(SiteStatus.FINISHED);
+			} else {
+				// ステータス：処理前報酬を取得する
+				setSiteStatus(SiteStatus.EARNINGS_BEFORE);
+			}
 		} else {
 			// ログ
 			log("ログイン失敗しました。");

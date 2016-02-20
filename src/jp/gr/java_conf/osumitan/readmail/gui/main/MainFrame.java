@@ -23,6 +23,10 @@ public class MainFrame extends BaseFrame {
 	private StartButton startButton;
 	/** 停止ボタン */
 	private StopButton stopButton;
+	/** 全選択チェックボックス */
+	private AllSelectCheck allSelectCheck;
+	/** ログインのみチェックボックス */
+	private LoginOnlyCheck loginOnlyCheck;
 	/** サイト表 */
 	private SiteTable siteTable;
 	/** ログリスト */
@@ -52,6 +56,10 @@ public class MainFrame extends BaseFrame {
 		this.startButton = new StartButton(this);
 		// 停止ボタン
 		this.stopButton = new StopButton(this);
+		// 全選択チェックボックス
+		this.allSelectCheck = new AllSelectCheck(this);
+		// ログインのみチェックボックス
+		this.loginOnlyCheck = new LoginOnlyCheck(this);
 		// サイト表
 		this.siteTable = new SiteTable(this);
 		// ログリスト
@@ -61,6 +69,8 @@ public class MainFrame extends BaseFrame {
 		JPanel np = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		np.add(this.startButton);
 		np.add(this.stopButton);
+		np.add(this.allSelectCheck);
+		np.add(this.loginOnlyCheck);
 		add(np, BorderLayout.NORTH);
 
 		// CENTER
@@ -129,6 +139,20 @@ public class MainFrame extends BaseFrame {
 	 */
 	public StopButton getStopButton() {
 		return stopButton;
+	}
+
+	/**
+	 * @return 全選択チェックボックス
+	 */
+	public AllSelectCheck getAllSelectCheck() {
+		return allSelectCheck;
+	}
+
+	/**
+	 * @return ログインのみチェックボックス
+	 */
+	public LoginOnlyCheck getLoginOnlyCheck() {
+		return loginOnlyCheck;
 	}
 
 	/**

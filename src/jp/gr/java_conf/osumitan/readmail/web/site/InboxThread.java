@@ -8,7 +8,7 @@ import jp.gr.java_conf.osumitan.readmail.web.main.MainThread;
 /**
  * サイトスレッド：受信箱
  */
-public class InboxThread extends BaseSiteThread {
+public class InboxThread extends PointThread {
 
 	/**
 	 * コンストラクタ
@@ -63,7 +63,7 @@ public class InboxThread extends BaseSiteThread {
 		} else {
 			// ログ
 			log("受信箱が終了しました。");
-			//TODO ステータス：処理後報酬を取得する
+			// ステータス：処理後報酬を取得する
 			setSiteStatus(SiteStatus.EARNINGS_AFTER);
 		}
 	}

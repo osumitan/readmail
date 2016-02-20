@@ -91,6 +91,7 @@ public abstract class BaseThread extends Thread {
 	 * @param ex 例外
 	 */
 	protected void onAbended(Throwable ex) {
+		this.runningStatus = RunningStatus.ABENDED;
 		// 例外をログ出力
 		ex.printStackTrace();
 	}

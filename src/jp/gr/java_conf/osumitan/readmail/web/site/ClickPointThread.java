@@ -7,7 +7,7 @@ import jp.gr.java_conf.osumitan.readmail.web.main.MainThread;
 /**
  * サイトスレッド：クリックポイント
  */
-public class ClickPointThread extends BaseSiteThread {
+public class ClickPointThread extends PointThread {
 
 	/**
 	 * コンストラクタ

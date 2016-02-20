@@ -3,6 +3,8 @@ package jp.gr.java_conf.osumitan.readmail.gui.main;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ListSelectionModel;
+
 import jp.gr.java_conf.osumitan.readmail.gui.common.BaseTable;
 import jp.gr.java_conf.osumitan.readmail.gui.common.BaseTableModel;
 import jp.gr.java_conf.osumitan.readmail.web.site.Site;
@@ -21,6 +23,8 @@ public class SiteTable extends BaseTable<MainFrame, Site> {
 	 */
 	public SiteTable(MainFrame frame) {
 		super(frame, Site.createSiteList());
+		// 単一行のみ選択可
+		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 
 	/**
@@ -65,6 +69,19 @@ public class SiteTable extends BaseTable<MainFrame, Site> {
 		for(Site site : dataList) {
 			site.clear();
 		}
+	}
+
+	/**
+	 * @return 選択サイト数
+	 */
+	public int getSelectedCount() {
+		int cnt = 0;
+		for(Site site : dataList) {
+			if(site.isSelected()) {
+				cnt++;
+			}
+		}
+		return cnt;
 	}
 
 	/**

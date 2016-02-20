@@ -2,8 +2,6 @@ package jp.gr.java_conf.osumitan.readmail.web.site;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.swing.JOptionPane;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -195,44 +193,5 @@ public abstract class BaseSiteThread extends Thread {
 	 */
 	protected void setChecked(String selector, boolean checked) {
 		setChecked(By.cssSelector(selector), checked);
-	}
-
-	/**
-	 * ポイント獲得まで待つ
-	 */
-	protected void waitUntilPointGet() {
-		// 数字認証
-		boolean b = false;
-		while(!b) {
-			// フレームがあるか
-			b = existsElement("frameset");
-			if(!b) {
-				// 数字認証画像があるか
-				if(existsElement(String.format("img[src*='%s']", site.getNumberAuthImage()))) {
-					// ログ
-					log("数字認証を要求されています…");
-					// 数字を入力
-					String n = JOptionPane.showInputDialog(mainThread.getFrame(), "数字認証");
-					setValue(String.format("input[name='%s']", site.getNumberAuthInput()), n);
-					click("input[type='submit']");
-					// ログ
-					log("数字認証を入力しました。");
-					// ページ読み込み完了を待つ
-					waitLoaded();
-				} else {
-					// ログ
-					log("ポイント獲得失敗");
-					return;
-				}
-			}
-		}
-		// ログ
-		log("ポイント獲得を待っています…");
-		// ポイント獲得まで待つ
-		driver.switchTo().frame(site.getPointGetFrame());
-		waitPointGet();
-		driver.switchTo().window(driver.getWindowHandle());
-		// ログ
-		log("ポイントを獲得しました。");
 	}
 }

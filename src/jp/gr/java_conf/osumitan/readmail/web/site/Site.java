@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import jp.gr.java_conf.osumitan.readmail.web.site.PointThread.NumberAuthType;
 import net.arnx.jsonic.JSON;
 
 /**
@@ -33,6 +34,8 @@ public class Site {
 	private String password;
 	/** 報酬明細ページ */
 	private String earningsPage;
+	/** 報酬明細テキスト */
+	private String earningsText;
 	/** 報酬パス */
 	private String earningsPath;
 	/** 報酬正規表現 */
@@ -53,8 +56,10 @@ public class Site {
 	private String inboxMailDeleteButton;
 	/** 数字認証画像 */
 	private String numberAuthImage;
-	/** 数字認証入力項目 */
-	private String numberAuthInput;
+	/** 数字認証タイプ */
+	private NumberAuthType numberAuthType;
+	/** 数字認証項目名 */
+	private String numberAuthName;
 	/** ポイント取得フレーム */
 	private String pointGetFrame;
 	/** ポイント取得メッセージ */
@@ -70,8 +75,10 @@ public class Site {
 	private static final String DEFAULT_LOGIN_PAGE = "enter.php";
 	/** デフォルト：報酬明細ページ */
 	private static final String DEFAULT_EARNINGS_PAGE = "earnings.php";
+	/** デフォルト：報酬明細テキスト */
+	private static final String DEFAULT_EARNINGS_TEXT = "合計ポイント";
 	/** デフォルト：報酬パス */
-	private static final String DEFAULT_EARNINGS_PATH = "//*[contains(text(),'合計ポイント')]/ancestor::tr[1]/td[2]//text()/..";
+	private static final String DEFAULT_EARNINGS_PATH = "//*[contains(text(),'%s')]/ancestor::tr[1]/td[2]//text()/..";
 	/** デフォルト：報酬正規表現 */
 	private static final String DEFAULT_EARNINGS_REGEXP = "(\\d+\\.\\d+)";
 	/** デフォルト：クリックポイントページ */
@@ -90,8 +97,10 @@ public class Site {
 	private static final String DEFAULT_INBOX_DELETE_BUTTON = "削除";
 	/** デフォルト：数字認証画像 */
 	private static final String DEFAULT_NUMBER_AUTH_IMAGE = "scripts/runner.php?TN=";
-	/** デフォルト：数字認証入力項目 */
-	private static final String DEFAULT_NUMBER_AUTH_INPUT = "PI";
+	/** デフォルト：数字認証タイプ */
+	private static final NumberAuthType DEFAULT_NUMBER_AUTH_TYPE = NumberAuthType.TEXT;
+	/** デフォルト：数字認証項目名 */
+	private static final String DEFAULT_NUMBER_AUTH_NAME = "PI";
 	/** デフォルト：ポイント取得フレーム */
 	private static final String DEFAULT_POINT_GET_FRAME = "timerfrm";
 	/** デフォルト：ポイント取得メッセージ */
@@ -126,6 +135,8 @@ public class Site {
 		this.loginPage = DEFAULT_LOGIN_PAGE;
 		// 報酬明細ページ
 		this.earningsPage = DEFAULT_EARNINGS_PAGE;
+		// 報酬明細テキスト
+		this.earningsText = DEFAULT_EARNINGS_TEXT;
 		// 報酬パス
 		this.earningsPath = DEFAULT_EARNINGS_PATH;
 		// 報酬正規表現
@@ -146,8 +157,10 @@ public class Site {
 		this.inboxMailDeleteButton = DEFAULT_INBOX_DELETE_BUTTON;
 		// 数字認証画像
 		this.numberAuthImage = DEFAULT_NUMBER_AUTH_IMAGE;
-		// 数字認証入力項目
-		this.numberAuthInput = DEFAULT_NUMBER_AUTH_INPUT;
+		// 数字認証タイプ
+		this.numberAuthType = DEFAULT_NUMBER_AUTH_TYPE;
+		// 数字認証項目名
+		this.numberAuthName = DEFAULT_NUMBER_AUTH_NAME;
 		// ポイント取得フレーム
 		this.pointGetFrame = DEFAULT_POINT_GET_FRAME;
 		// ポイント取得メッセージ
@@ -311,6 +324,20 @@ public class Site {
 	}
 
 	/**
+	 * @return 報酬明細テキスト
+	 */
+	public String getEarningsText() {
+		return earningsText;
+	}
+
+	/**
+	 * @param earningsText 報酬明細テキスト
+	 */
+	public void setEarningsText(String earningsText) {
+		this.earningsText = earningsText;
+	}
+
+	/**
 	 * @return 報酬パス
 	 */
 	public String getEarningsPath() {
@@ -451,17 +478,38 @@ public class Site {
 	}
 
 	/**
-	 * @return 数字認証入力項目
+	 * @return 数字認証タイプ
 	 */
-	public String getNumberAuthInput() {
-		return numberAuthInput;
+	public NumberAuthType getNumberAuthType() {
+		return numberAuthType;
 	}
 
 	/**
-	 * @param numberAuthInput 数字認証入力項目
+	 * @param numberAuthType 数字認証タイプ
 	 */
-	public void setNumberAuthInput(String numberAuthInput) {
-		this.numberAuthInput = numberAuthInput;
+	public void setNumberAuthType(NumberAuthType numberAuthType) {
+		this.numberAuthType = numberAuthType;
+	}
+
+	/**
+	 * @param numberAuthType 数字認証タイプ
+	 */
+	public void setNumberAuthType(String numberAuthType) {
+		setNumberAuthType(NumberAuthType.valueOf(numberAuthType));
+	}
+
+	/**
+	 * @return 数字認証項目名
+	 */
+	public String getNumberAuthName() {
+		return numberAuthName;
+	}
+
+	/**
+	 * @param numberAuthInput 数字認証項目名
+	 */
+	public void setNumberAuthName(String numberAuthInput) {
+		this.numberAuthName = numberAuthInput;
 	}
 
 	/**

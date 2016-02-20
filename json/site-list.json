@@ -9,7 +9,10 @@
 		"name": "流石めーる",
 		"domain": "sasuga.biz",
 		"userName": "love3factory",
-		"password": "sexybeam"
+		"password": "sexybeam",
+		"earningsText": "報酬合計",
+		"numberAuthType": "LINK",
+		"pointGetMessage": "報酬は加算されました"
 	},
 	{
 		"name": "アクセス宣伝隊長",
@@ -17,5 +20,25 @@
 		"userName": "love3factory",
 		"password": "sexybeam",
 		"pointGetMessage": "ポイント獲得です"
+	},
+	{
+		"name": "ABCリードメール",
+		"domain": "abc-mail.jp",
+		"userName": "love3factory",
+		"password": "sexybeam"
+	},
+	{
+		"name": "ええやん",
+		"domain": "dosukoi.biz",
+		"userName": "love3factory",
+		"password": "sexybeam",
+		"numberAuthType": "LINK"
+	},
+	{
+		"name": "ペガサスメール",
+		"domain": "pegasusmail.net",
+		"userName": "love3factory",
+		"password": "sexybeam",
+		"numberAuthType": "LINK"
 	}
 ]

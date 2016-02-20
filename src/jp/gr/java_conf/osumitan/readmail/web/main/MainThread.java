@@ -89,6 +89,8 @@ public class MainThread extends BaseThread implements UncaughtExceptionHandler {
 		if(this.siteThread != null && this.siteThread.isAlive()) {
 			return;
 		}
+		// サイトテーブルの行を選択
+		frame.getSiteTable().setRowSelectionInterval(this.siteIndex, this.siteIndex);
 		// サイトスレッドのコンストラクタを取得
 		Function<MainThread, BaseSiteThread> constructor = this.siteStatus.getConstructor();
 		if(constructor == null) {
@@ -142,9 +144,10 @@ public class MainThread extends BaseThread implements UncaughtExceptionHandler {
 	 */
 	@Override
 	protected void postProcess() {
-		// ドライバ破棄
-//TODO ブラウザを閉じるのをやめておく
-//		this.driver.quit();
+		// 正常終了時はブラウザを閉じる
+		if(RunningStatus.FINISHED.equals(runningStatus) && !frame.getLoginOnlyCheck().isSelected()) {
+			this.driver.quit();
+		}
 	}
 
 	/**
@@ -166,6 +169,10 @@ public class MainThread extends BaseThread implements UncaughtExceptionHandler {
 		this.frame.getStartButton().setEnabled(enabled);
 		// 停止ボタン
 		this.frame.getStopButton().setEnabled(!enabled);
+		// 全選択チェックボックス
+		this.frame.getAllSelectCheck().setEnabled(enabled);
+		// ログインのみチェックボックス
+		this.frame.getLoginOnlyCheck().setEnabled(enabled);
 		// サイト表
 		this.frame.getSiteTable().setEnabled(enabled);
 	}
@@ -223,6 +230,11 @@ public class MainThread extends BaseThread implements UncaughtExceptionHandler {
 	 * 次のサイトへ
 	 */
 	public void nextSite() {
+		// サイトテーブルの行選択を解除
+		frame.getSiteTable().clearSelection();
+		// サイトの選択を外す
+		getCurrentSite().setSelected(false);
+		frame.repaint();
 		// サイトインデックスを繰り上げ
 		this.siteIndex++;
 		// サイトステータスを初期化

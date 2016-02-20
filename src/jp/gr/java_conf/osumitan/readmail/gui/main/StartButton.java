@@ -44,6 +44,21 @@ public class StartButton extends BaseButton<MainFrame> {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent evt) {
+			// 選択サイト数チェック
+			int cnt = frame.getSiteTable().getSelectedCount();
+			if(frame.getLoginOnlyCheck().isSelected()) {
+				// ログインのみ時は1件のみ選択
+				if(cnt != 1) {
+					frame.showMessage("エラー", "ログインのみ時は1サイトのみ選択してください。");
+					return;
+				}
+			} else {
+				// 通常時は1件以上選択
+				if(cnt < 1) {
+					frame.showMessage("エラー", "サイトを選択してください。");
+					return;
+				}
+			}
 			// メインスレッド開始
 			MainThread mainThread = new MainThread(frame);
 			frame.setMainThread(mainThread);
