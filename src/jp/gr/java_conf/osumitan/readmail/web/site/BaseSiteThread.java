@@ -70,10 +70,17 @@ public abstract class BaseSiteThread extends Thread {
 	 * @param timeout タイムアウト
 	 */
 	protected void until(Function<RemoteWebDriver, Boolean> isTrue, long timeout) {
+		// 待ち条件設定
 		FluentWait<RemoteWebDriver> wait = new FluentWait<RemoteWebDriver>(this.driver);
 		wait.withTimeout(timeout, TimeUnit.SECONDS);
 		wait.pollingEvery(100L, TimeUnit.MILLISECONDS);
-		wait.until(isTrue);
+		// 条件成立まで待つ
+		try {
+			wait.until(isTrue);
+		} catch(TimeoutException e) {
+			// タイムアウトは無視して成功と見なす
+			log(String.format("タイムアウト：%s", e.getMessage()));
+		}
 	}
 
 	/**
@@ -81,11 +88,7 @@ public abstract class BaseSiteThread extends Thread {
 	 */
 	protected void waitLoaded() {
 		// document.readyState が interactive または complete であること
-		try {
-			until((driver) -> Boolean.TRUE.toString().equals(this.driver.executeScript(SCRIPT_WAIT_LOADED)), 5L);
-		} catch(TimeoutException e) {
-			log("ページ読み込み待ちがタイムアウトしました。");
-		}
+		until((driver) -> Boolean.TRUE.toString().equals(this.driver.executeScript(SCRIPT_WAIT_LOADED)), 5L);
 	}
 
 	/**
@@ -97,7 +100,8 @@ public abstract class BaseSiteThread extends Thread {
 		try {
 			this.driver.get(url);
 		} catch(TimeoutException e) {
-			log("ページ読み込み待ちがタイムアウトしました。");
+			// タイムアウトは無視して成功と見なす
+			log(String.format("タイムアウト：%s", e.getMessage()));
 		}
 	}
 
@@ -154,7 +158,8 @@ public abstract class BaseSiteThread extends Thread {
 		try {
 			findElement(by).click();
 		} catch(TimeoutException e) {
-			log("ページ読み込み待ちがタイムアウトしました。");
+			// タイムアウトは無視して成功と見なす
+			log(String.format("タイムアウト：%s", e.getMessage()));
 		}
 	}
 

@@ -27,7 +27,7 @@ public class EarningsAfterThread extends EarningsThread {
 		readEarnings();
 		// ログ
 		log("処理後報酬を取得しました。");
-		// ステータス：ログアウトする
-		setSiteStatus(SiteStatus.LOGOUT);
+		// ステータス：支払請求
+		setSiteStatus(SiteStatus.PAY_REQUEST);
 	}
 }

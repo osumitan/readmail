@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import jp.gr.java_conf.osumitan.readmail.web.site.InboxThread.InboxMailLinkSelectorType;
 import jp.gr.java_conf.osumitan.readmail.web.site.PointThread.NumberAuthType;
 import net.arnx.jsonic.JSON;
 
@@ -22,6 +23,9 @@ public class Site {
 	private Double earningsBefore;
 	/** 処理後報酬 */
 	private Double earningsAfter;
+	/** 報酬請求可否 */
+	private boolean payable;
+
 	/** ドメイン */
 	private String domain;
 	/** ページプレフィックス */
@@ -54,6 +58,10 @@ public class Site {
 	private String inboxPage;
 	/** 受信箱メールリンク */
 	private String inboxMailLink;
+	/** 受信箱メールリンクセレクタ */
+	private String inboxMailLinkSelector;
+	/** 受信箱メールリンクセレクタタイプ */
+	private InboxMailLinkSelectorType inboxMailLinkSelectorType;
 	/** 受信箱ポイントリンク */
 	private String inboxPointLink;
 	/** 受信箱メール削除要否 */
@@ -78,6 +86,10 @@ public class Site {
 	private String pointGetMessagePath;
 	/** 広告ウィンドウ */
 	private String adWindow;
+	/** 支払請求ページ */
+	private String payRequestPage;
+	/** 支払請求ボタンセレクタ */
+	private String payRequestButtonSelector;
 	/** ログアウトページ */
 	private String logoutPage;
 
@@ -107,6 +119,10 @@ public class Site {
 	private static final String DEFAULT_INBOX_PAGE = "inbox.php";
 	/** デフォルト：受信箱メールリンク */
 	private static final String DEFAULT_INBOX_MAIL_LINK = "scripts/runner.php?IM=";
+	/** デフォルト：受信箱メールリンクセレクタ */
+	private static final String DEFAULT_INBOX_MAIL_LINK_SELECTOR = "a[href*='%s']";
+	/** デフォルト：受信箱メールリンクセレクタタイプ */
+	private static final InboxMailLinkSelectorType DEFAULT_INBOX_MAIL_LINK_SELECTOR_TYPE = InboxMailLinkSelectorType.CSS_SELECTOR;
 	/** デフォルト：受信箱ポイントリンク */
 	private static final String DEFAULT_INBOX_POINT_LINK = "scripts/runner.php?EA=";
 	/** デフォルト：受信箱メール削除要否 */
@@ -129,6 +145,10 @@ public class Site {
 	private static final String DEFAULT_POINT_GET_MESSAGE = "報酬が加算されました";
 	/** デフォルト：ポイント取得メッセージパス */
 	private static final String DEFAULT_POINT_GET_MESSAGE_PATH = "//*[contains(text(),'%s')]/..";
+	/** デフォルト：支払請求ページ */
+	private static final String DEFAULT_PAY_REQUEST_PAGE = "redeem.php";
+	/** デフォルト：支払請求ボタンセレクタ */
+	private static final String DEFAULT_PAY_REQUEST_BUTTON_SELECTOR = "#withdbtn1";
 	/** デフォルト：ログアウトページ */
 	private static final String DEFAULT_LOGOUT_PAGE = "index.php?username=LOGOUT&password=LOGOUT";
 
@@ -177,6 +197,10 @@ public class Site {
 		this.inboxPage = DEFAULT_INBOX_PAGE;
 		// 受信箱メールリンク
 		this.inboxMailLink = DEFAULT_INBOX_MAIL_LINK;
+		// 受信箱メールリンクセレクタ
+		this.inboxMailLinkSelector = DEFAULT_INBOX_MAIL_LINK_SELECTOR;
+		// 受信箱メールリンクセレクタタイプ
+		this.inboxMailLinkSelectorType = DEFAULT_INBOX_MAIL_LINK_SELECTOR_TYPE;
 		// 受信箱ポイントリンク
 		this.inboxPointLink = DEFAULT_INBOX_POINT_LINK;
 		// 受信箱メール削除要否
@@ -199,6 +223,10 @@ public class Site {
 		this.pointGetMessage = DEFAULT_POINT_GET_MESSAGE;
 		// ポイント取得メッセージパス
 		this.pointGetMessagePath = DEFAULT_POINT_GET_MESSAGE_PATH;
+		// 支払請求ページ
+		this.payRequestPage = DEFAULT_PAY_REQUEST_PAGE;
+		// 支払請求ボタンセレクタ
+		this.payRequestButtonSelector = DEFAULT_PAY_REQUEST_BUTTON_SELECTOR;
 		// ログアウトページ
 		this.logoutPage = DEFAULT_LOGOUT_PAGE;
 		// クリア
@@ -269,6 +297,27 @@ public class Site {
 	 */
 	public void setEarningsAfter(Double earningsAfter) {
 		this.earningsAfter = earningsAfter;
+	}
+
+	/**
+	 * @return 報酬請求可否
+	 */
+	public boolean isPayable() {
+		return payable;
+	}
+
+	/**
+	 * @return 報酬請求可否
+	 */
+	public String getPayableString() {
+		return isPayable() ? "★" : "";
+	}
+
+	/**
+	 * @param payable 報酬請求可否
+	 */
+	public void setPayable(boolean payable) {
+		this.payable = payable;
 	}
 
 	/**
@@ -496,6 +545,41 @@ public class Site {
 	}
 
 	/**
+	 * @return 受信箱メールリンクセレクタ
+	 */
+	public String getInboxMailLinkSelector() {
+		return inboxMailLinkSelector;
+	}
+
+	/**
+	 * @param inboxMailLinkSelector 受信箱メールリンクセレクタ
+	 */
+	public void setInboxMailLinkSelector(String inboxMailLinkSelector) {
+		this.inboxMailLinkSelector = inboxMailLinkSelector;
+	}
+
+	/**
+	 * @return 受信箱メールリンクセレクタタイプ
+	 */
+	public InboxMailLinkSelectorType getInboxMailLinkSelectorType() {
+		return inboxMailLinkSelectorType;
+	}
+
+	/**
+	 * @param inboxMailLinkSelectorType 受信箱メールリンクセレクタタイプ
+	 */
+	public void setInboxMailLinkSelectorType(InboxMailLinkSelectorType inboxMailLinkSelectorType) {
+		this.inboxMailLinkSelectorType = inboxMailLinkSelectorType;
+	}
+
+	/**
+	 * @param inboxMailLinkSelectorType 受信箱メールリンクセレクタタイプ
+	 */
+	public void setInboxMailLinkSelectorType(String inboxMailLinkSelectorType) {
+		setInboxMailLinkSelectorType(InboxMailLinkSelectorType.valueOf(inboxMailLinkSelectorType));
+	}
+
+	/**
 	 * @return 受信箱ポイントリンク
 	 */
 	public String getInboxPointLink() {
@@ -683,6 +767,34 @@ public class Site {
 	 */
 	public void setAdWindow(String adWindow) {
 		this.adWindow = adWindow;
+	}
+
+	/**
+	 * @return 支払請求ページ
+	 */
+	public String getPayRequestPage() {
+		return payRequestPage;
+	}
+
+	/**
+	 * @param payRequestPage 支払請求ページ
+	 */
+	public void setPayRequestPage(String payRequestPage) {
+		this.payRequestPage = payRequestPage;
+	}
+
+	/**
+	 * @return 支払請求ボタンセレクタ
+	 */
+	public String getPayRequestButtonSelector() {
+		return payRequestButtonSelector;
+	}
+
+	/**
+	 * @param payRequestButtonSelector 支払請求ボタンセレクタ
+	 */
+	public void setPayRequestButtonSelector(String payRequestButtonSelector) {
+		this.payRequestButtonSelector = payRequestButtonSelector;
 	}
 
 	/**

@@ -15,12 +15,16 @@
 		"clickPointLink": "tracer.jsp?adid=",
 		"inboxPage": "mailbox.jsp",
 		"inboxMailLink": "mailad.jsp?adid=",
+		"inboxMailLinkSelector": "//*[contains(text(),'未読')]/ancestor::tr/td/a[contains(@href,'%s')]",
+		"inboxMailLinkSelectorType": "XPATH",
 		"inboxPointLink": "tracer.jsp?adid=",
 		"requiredInboxMailDelete": "false",
 		"pointLinkParameter": "&win=o",
 		"pointGetFrame": "f1",
 		"pointGetMessage": "円が加算されました",
 		"adWindow": "adwindow",
+		"payRequestPage": "withdrawal2.jsp",
+		"payRequestButtonSelector": "#withdbtn1",
 		"logoutPage": "index.jsp?username=LOGOUT&password=LOGOUT"
 	},
 	{
@@ -90,12 +94,5 @@
 		"domain": "1x-mail.com",
 		"userName": "love3factory",
 		"password": "sexybeam"
-	},
-	{
-		"name": "夢幻レボリューション",
-		"domain": "mugen-r.com",
-		"userName": "love3factory",
-		"password": "sexybeam",
-		"earningsText": "ポイント収入合計"
 	}
 ]

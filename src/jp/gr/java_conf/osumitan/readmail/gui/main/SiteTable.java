@@ -106,9 +106,10 @@ public class SiteTable extends BaseTable<MainFrame, Site> {
 			// 列情報
 			COLUMN_LIST.clear();
 			COLUMN_LIST.add(new Column("選択", 100, Boolean.class, Site::isSelected));
-			COLUMN_LIST.add(new Column("サイト名", 500, String.class, Site::getName));
-			COLUMN_LIST.add(new Column("処理前報酬", 200, Double.class, Site::getEarningsBefore));
-			COLUMN_LIST.add(new Column("処理後報酬", 200, Double.class, Site::getEarningsAfter));
+			COLUMN_LIST.add(new Column("サイト名", 400, String.class, Site::getName));
+			COLUMN_LIST.add(new Column("処理前報酬", 150, Double.class, Site::getEarningsBefore));
+			COLUMN_LIST.add(new Column("処理後報酬", 150, Double.class, Site::getEarningsAfter));
+			COLUMN_LIST.add(new Column("支払", 100, String.class, Site::getPayableString));
 		}
 	}
 }

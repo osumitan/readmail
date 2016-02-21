@@ -19,6 +19,8 @@ public enum SiteStatus {
 	INBOX(InboxThread::new),
 	/** 処理後報酬を取得する */
 	EARNINGS_AFTER(EarningsAfterThread::new),
+	/** 支払請求 */
+	PAY_REQUEST(PayRequestThread::new),
 	/** ログアウトする */
 	LOGOUT(LogoutThread::new),
 	/** 正常終了 */

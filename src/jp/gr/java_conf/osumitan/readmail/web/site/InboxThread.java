@@ -1,5 +1,7 @@
 package jp.gr.java_conf.osumitan.readmail.web.site;
 
+import java.util.function.Function;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -28,12 +30,13 @@ public class InboxThread extends PointThread {
 		navigate(site.getInboxPage());
 		// ログ
 		log("受信箱ページを開きました。");
-		// クリックポイントリンクがあるか
-		if(existsElement(String.format("a[href*='%s']", site.getInboxMailLink()))) {
+		// 受信箱メールリンクがあるか
+		By byInboxMailLink = site.getInboxMailLinkSelectorType().getInboxMailLinkSelector().apply(this);
+		if(existsElement(byInboxMailLink)) {
 			// ログ
 			log("受信箱メールを開いています…");
 			// 受信箱メールを開く
-			WebElement mail = findElement(String.format("a[href*='%s']", site.getInboxMailLink()));
+			WebElement mail = findElement(byInboxMailLink);
 			get(mail.getAttribute("href"));
 			// ログ
 			log("受信箱メールを開きました。");
@@ -67,6 +70,51 @@ public class InboxThread extends PointThread {
 			log("受信箱が終了しました。");
 			// ステータス：処理後報酬を取得する
 			setSiteStatus(SiteStatus.EARNINGS_AFTER);
+		}
+	}
+
+	/**
+	 * 受信箱メールリンクセレクタ：CSSセレクタ
+	 * @return 受信箱メールリンクセレクタ
+	 */
+	private By getInboxMailLinkSelectorCssSelector() {
+		return By.cssSelector(String.format(site.getInboxMailLinkSelector(), site.getInboxMailLink()));
+	}
+
+	/**
+	 * 受信箱メールリンクセレクタ：XPATH
+	 * @return 受信箱メールリンクセレクタ
+	 */
+	private By getInboxMailLinkSelectorXPath() {
+		return By.xpath(String.format(site.getInboxMailLinkSelector(), site.getInboxMailLink()));
+	}
+
+	/**
+	 * 受信箱メールリンクセレクタタイプ
+	 */
+	public enum InboxMailLinkSelectorType {
+		/** CSSセレクタ */
+		CSS_SELECTOR(InboxThread::getInboxMailLinkSelectorCssSelector),
+		/** XPATH */
+		XPATH(InboxThread::getInboxMailLinkSelectorXPath);
+
+		/** 受信箱メールリンクセレクタ */
+		private Function<InboxThread, By> inboxMailLinkSelector;
+
+		/**
+		 * コンストラクタ
+		 * @param inboxMailLinkSelector 受信箱メールリンクセレクタ
+		 */
+		private InboxMailLinkSelectorType(Function<InboxThread, By> inboxMailLinkSelector) {
+			// 受信箱メールリンクセレクタ
+			this.inboxMailLinkSelector = inboxMailLinkSelector;
+		}
+
+		/**
+		 * @return 受信箱メールリンクセレクタ
+		 */
+		public Function<InboxThread, By> getInboxMailLinkSelector() {
+			return inboxMailLinkSelector;
 		}
 	}
 }
