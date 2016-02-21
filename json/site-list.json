@@ -1,9 +1,34 @@
 [
 	{
+		"name": "白くつしたのナッツ",
+		"domain": "ntsinfo.ddo.jp",
+		"pagePrefix": "whitesocks/",
+		"loginPage": "login.jsp",
+		"loginButton": "sbmtbtn",
+		"userName": "love3factory",
+		"password": "sexybeam",
+		"userNameTextBox": "userid_f",
+		"passwordTextBox": "pw_f",
+		"earningsPage": "balance.jsp",
+		"earningsText": "未換金報酬の合計",
+		"clickPointPage": "ptcad.jsp",
+		"clickPointLink": "tracer.jsp?adid=",
+		"inboxPage": "mailbox.jsp",
+		"inboxMailLink": "mailad.jsp?adid=",
+		"inboxPointLink": "tracer.jsp?adid=",
+		"requiredInboxMailDelete": "false",
+		"pointLinkParameter": "&win=o",
+		"pointGetFrame": "f1",
+		"pointGetMessage": "円が加算されました",
+		"adWindow": "adwindow",
+		"logoutPage": "index.jsp?username=LOGOUT&password=LOGOUT"
+	},
+	{
 		"name": "キングオブリードメール",
 		"domain": "kingmail.jp",
 		"userName": "love3factory",
-		"password": "sexybeam"
+		"password": "sexybeam",
+		"numberAuthType": "TEXT"
 	},
 	{
 		"name": "流石めーる",
@@ -11,7 +36,6 @@
 		"userName": "love3factory",
 		"password": "sexybeam",
 		"earningsText": "報酬合計",
-		"numberAuthType": "LINK",
 		"pointGetMessage": "報酬は加算されました"
 	},
 	{
@@ -19,26 +43,59 @@
 		"domain": "access-ad.com",
 		"userName": "love3factory",
 		"password": "sexybeam",
+		"numberAuthType": "TEXT",
 		"pointGetMessage": "ポイント獲得です"
 	},
 	{
 		"name": "ABCリードメール",
 		"domain": "abc-mail.jp",
 		"userName": "love3factory",
-		"password": "sexybeam"
+		"password": "sexybeam",
+		"numberAuthType": "TEXT"
 	},
 	{
 		"name": "ええやん",
 		"domain": "dosukoi.biz",
 		"userName": "love3factory",
-		"password": "sexybeam",
-		"numberAuthType": "LINK"
+		"password": "sexybeam"
 	},
 	{
 		"name": "ペガサスメール",
 		"domain": "pegasusmail.net",
 		"userName": "love3factory",
+		"password": "sexybeam"
+	},
+	{
+		"name": "Dreamy Mail",
+		"domain": "dreamy-mail.net",
+		"userName": "love3factory",
+		"password": "sexybeam"
+	},
+	{
+		"name": "President Mail",
+		"domain": "presidentmail.net",
+		"userName": "love3factory",
 		"password": "sexybeam",
-		"numberAuthType": "LINK"
+		"earningsText": "合　　計",
+		"pointGetMessage": "POINTが加算されました"
+	},
+	{
+		"name": "Noble Mail",
+		"domain": "noblemail.bz",
+		"userName": "love3factory",
+		"password": "sexybeam"
+	},
+	{
+		"name": "X-MAIL",
+		"domain": "1x-mail.com",
+		"userName": "love3factory",
+		"password": "sexybeam"
+	},
+	{
+		"name": "夢幻レボリューション",
+		"domain": "mugen-r.com",
+		"userName": "love3factory",
+		"password": "sexybeam",
+		"earningsText": "ポイント収入合計"
 	}
 ]

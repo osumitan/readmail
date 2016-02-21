@@ -28,10 +28,16 @@ public class Site {
 	private String pagePrefix;
 	/** ログインページ */
 	private String loginPage;
+	/** ログインボタン */
+	private String loginButton;
 	/** ユーザ名 */
 	private String userName;
+	/** ユーザ名テキストボックス */
+	private String userNameTextBox;
 	/** パスワード */
 	private String password;
+	/** パスワードテキストボックス */
+	private String passwordTextBox;
 	/** 報酬明細ページ */
 	private String earningsPage;
 	/** 報酬明細テキスト */
@@ -50,6 +56,8 @@ public class Site {
 	private String inboxMailLink;
 	/** 受信箱ポイントリンク */
 	private String inboxPointLink;
+	/** 受信箱メール削除要否 */
+	private boolean requiredInboxMailDelete;
 	/** 受信箱メール削除チェック */
 	private String inboxMailDeleteCheck;
 	/** 受信箱メール削除ボタン */
@@ -60,12 +68,16 @@ public class Site {
 	private NumberAuthType numberAuthType;
 	/** 数字認証項目名 */
 	private String numberAuthName;
+	/** ポイントリンクパラメータ */
+	private String pointLinkParameter;
 	/** ポイント取得フレーム */
 	private String pointGetFrame;
 	/** ポイント取得メッセージ */
 	private String pointGetMessage;
 	/** ポイント取得メッセージパス */
 	private String pointGetMessagePath;
+	/** 広告ウィンドウ */
+	private String adWindow;
 	/** ログアウトページ */
 	private String logoutPage;
 
@@ -73,6 +85,12 @@ public class Site {
 	private static final String DEFAULT_PAGE_PREFIX = "pages/";
 	/** デフォルト：ログインページ */
 	private static final String DEFAULT_LOGIN_PAGE = "enter.php";
+	/** デフォルト：ログインボタン */
+	private static final String DEFAULT_LOGIN_BUTTON = "submit";
+	/** デフォルト：ユーザ名テキストボックス */
+	private static final String DEFAULT_USER_NAME_TEXT_BOX = "username";
+	/** デフォルト：パスワードテキストボックス */
+	private static final String DEFAULT_PASSWORD_TEXT_BOX = "password";
 	/** デフォルト：報酬明細ページ */
 	private static final String DEFAULT_EARNINGS_PAGE = "earnings.php";
 	/** デフォルト：報酬明細テキスト */
@@ -91,6 +109,8 @@ public class Site {
 	private static final String DEFAULT_INBOX_MAIL_LINK = "scripts/runner.php?IM=";
 	/** デフォルト：受信箱ポイントリンク */
 	private static final String DEFAULT_INBOX_POINT_LINK = "scripts/runner.php?EA=";
+	/** デフォルト：受信箱メール削除要否 */
+	private static final boolean DEFAULT_REQUIRED_INBOX_MAIL_DELETE = true;
 	/** デフォルト：受信箱メール削除チェック */
 	private static final String DEFAULT_INBOX_DELETE_CHECK = "//*[contains(@href,'%s')]/ancestor::tr[1]//input[contains(@type,'checkbox')]";
 	/** デフォルト：受信箱メール削除ボタン */
@@ -98,9 +118,11 @@ public class Site {
 	/** デフォルト：数字認証画像 */
 	private static final String DEFAULT_NUMBER_AUTH_IMAGE = "scripts/runner.php?TN=";
 	/** デフォルト：数字認証タイプ */
-	private static final NumberAuthType DEFAULT_NUMBER_AUTH_TYPE = NumberAuthType.TEXT;
+	private static final NumberAuthType DEFAULT_NUMBER_AUTH_TYPE = NumberAuthType.LINK;
 	/** デフォルト：数字認証項目名 */
 	private static final String DEFAULT_NUMBER_AUTH_NAME = "PI";
+	/** デフォルト：ポイントリンクパラメータ */
+	private static final String DEFAULT_POINT_LINK_PARAMETER = "";
 	/** デフォルト：ポイント取得フレーム */
 	private static final String DEFAULT_POINT_GET_FRAME = "timerfrm";
 	/** デフォルト：ポイント取得メッセージ */
@@ -133,6 +155,12 @@ public class Site {
 		this.pagePrefix = DEFAULT_PAGE_PREFIX;
 		// ログインページ
 		this.loginPage = DEFAULT_LOGIN_PAGE;
+		// ログインボタン
+		this.loginButton = DEFAULT_LOGIN_BUTTON;
+		// ユーザ名テキストボックス
+		this.userNameTextBox = DEFAULT_USER_NAME_TEXT_BOX;
+		// パスワードテキストボックス
+		this.passwordTextBox = DEFAULT_PASSWORD_TEXT_BOX;
 		// 報酬明細ページ
 		this.earningsPage = DEFAULT_EARNINGS_PAGE;
 		// 報酬明細テキスト
@@ -151,6 +179,8 @@ public class Site {
 		this.inboxMailLink = DEFAULT_INBOX_MAIL_LINK;
 		// 受信箱ポイントリンク
 		this.inboxPointLink = DEFAULT_INBOX_POINT_LINK;
+		// 受信箱メール削除要否
+		this.requiredInboxMailDelete = DEFAULT_REQUIRED_INBOX_MAIL_DELETE;
 		// 受信箱メール削除チェック
 		this.inboxMailDeleteCheck = DEFAULT_INBOX_DELETE_CHECK;
 		// 受信箱メール削除ボタン
@@ -161,6 +191,8 @@ public class Site {
 		this.numberAuthType = DEFAULT_NUMBER_AUTH_TYPE;
 		// 数字認証項目名
 		this.numberAuthName = DEFAULT_NUMBER_AUTH_NAME;
+		// ポイントリンクパラメータ
+		this.pointLinkParameter = DEFAULT_POINT_LINK_PARAMETER;
 		// ポイント取得フレーム
 		this.pointGetFrame = DEFAULT_POINT_GET_FRAME;
 		// ポイント取得メッセージ
@@ -282,6 +314,20 @@ public class Site {
 	}
 
 	/**
+	 * @return ログインボタン
+	 */
+	public String getLoginButton() {
+		return loginButton;
+	}
+
+	/**
+	 * @param loginButton ログインボタン
+	 */
+	public void setLoginButton(String loginButton) {
+		this.loginButton = loginButton;
+	}
+
+	/**
 	 * @return ユーザ名
 	 */
 	public String getUserName() {
@@ -296,6 +342,20 @@ public class Site {
 	}
 
 	/**
+	 * @return ユーザ名テキストボックス
+	 */
+	public String getUserNameTextBox() {
+		return userNameTextBox;
+	}
+
+	/**
+	 * @param userNameTextBox ユーザ名テキストボックス
+	 */
+	public void setUserNameTextBox(String userNameTextBox) {
+		this.userNameTextBox = userNameTextBox;
+	}
+
+	/**
 	 * @return パスワード
 	 */
 	public String getPassword() {
@@ -307,6 +367,20 @@ public class Site {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	/**
+	 * @return パスワードテキストボックス
+	 */
+	public String getPasswordTextBox() {
+		return passwordTextBox;
+	}
+
+	/**
+	 * @param passwordTextBox パスワードテキストボックス
+	 */
+	public void setPasswordTextBox(String passwordTextBox) {
+		this.passwordTextBox = passwordTextBox;
 	}
 
 	/**
@@ -436,6 +510,27 @@ public class Site {
 	}
 
 	/**
+	 * @return 受信箱メール削除要否
+	 */
+	public boolean isRequiredInboxMailDelete() {
+		return requiredInboxMailDelete;
+	}
+
+	/**
+	 * @param requiredInboxMailDelete 受信箱メール削除要否
+	 */
+	public void setRequiredInboxMailDelete(boolean requiredInboxMailDelete) {
+		this.requiredInboxMailDelete = requiredInboxMailDelete;
+	}
+
+	/**
+	 * @param requiredInboxMailDelete 受信箱メール削除要否
+	 */
+	public void setRequiredInboxMailDelete(String requiredInboxMailDelete) {
+		setRequiredInboxMailDelete(Boolean.valueOf(requiredInboxMailDelete));
+	}
+
+	/**
 	 * @return 受信箱メール削除チェック
 	 */
 	public String getInboxMailDeleteCheck() {
@@ -513,6 +608,20 @@ public class Site {
 	}
 
 	/**
+	 * @return ポイントリンクパラメータ
+	 */
+	public String getPointLinkParameter() {
+		return pointLinkParameter;
+	}
+
+	/**
+	 * @param pointLinkParameter ポイントリンクパラメータ
+	 */
+	public void setPointLinkParameter(String pointLinkParameter) {
+		this.pointLinkParameter = pointLinkParameter;
+	}
+
+	/**
 	 * @return ポイント取得フレーム
 	 */
 	public String getPointGetFrame() {
@@ -552,6 +661,28 @@ public class Site {
 	 */
 	public void setPointGetMessagePath(String pointGetMessagePath) {
 		this.pointGetMessagePath = pointGetMessagePath;
+	}
+
+	/**
+	 * @return 広告ウィンドウ
+	 */
+	public String getAdWindow() {
+		return adWindow;
+	}
+
+	/**
+	 * 広告ウィンドウがあるか
+	 * @return 広告ウィンドウがあるか
+	 */
+	public boolean hasAdWindow() {
+		return this.adWindow != null;
+	}
+
+	/**
+	 * @param adWindow 広告ウィンドウ
+	 */
+	public void setAdWindow(String adWindow) {
+		this.adWindow = adWindow;
 	}
 
 	/**

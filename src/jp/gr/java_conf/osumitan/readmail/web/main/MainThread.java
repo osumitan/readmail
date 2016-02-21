@@ -2,6 +2,7 @@ package jp.gr.java_conf.osumitan.readmail.web.main;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 import org.openqa.selenium.Dimension;
@@ -30,6 +31,8 @@ public class MainThread extends BaseThread implements UncaughtExceptionHandler {
 	private SiteStatus siteStatus;
 	/** サイトスレッド */
 	private BaseSiteThread siteThread;
+	/** 本体ウィンドウハンドラ */
+	private String windowHander;
 
 	/**
 	 * コンストラクタ
@@ -59,12 +62,15 @@ public class MainThread extends BaseThread implements UncaughtExceptionHandler {
 		this.driver = new ChromeDriver();
 		this.driver.manage().window().setSize(new Dimension(800, 600));
 		this.driver.manage().window().setPosition(new Point(520, 120));
+		this.driver.manage().timeouts().pageLoadTimeout(5L, TimeUnit.SECONDS);
 		// サイトインデックス
 		this.siteIndex = 0;
 		// サイトステータス
 		this.siteStatus = SiteStatus.INITIAL_STATUS;
 		// サイトスレッド
 		this.siteThread = null;
+		// ウィンドウハンドラ
+		this.windowHander = driver.getWindowHandle();
 	}
 
 	/**
@@ -255,5 +261,12 @@ public class MainThread extends BaseThread implements UncaughtExceptionHandler {
 	 */
 	public void setSiteStatus(SiteStatus siteStatus) {
 		this.siteStatus = siteStatus;
+	}
+
+	/**
+	 * @return ウィンドウハンドラ
+	 */
+	public String getWindowHander() {
+		return windowHander;
 	}
 }

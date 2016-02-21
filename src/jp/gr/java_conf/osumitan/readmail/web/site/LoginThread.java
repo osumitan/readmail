@@ -26,15 +26,19 @@ public class LoginThread extends BaseSiteThread {
 		// ログ
 		log("ログインしています…");
 		// ユーザ名
-		setValue("input[name='username']", site.getUserName());
+		setValue(String.format("input[name='%s']", site.getUserNameTextBox()), site.getUserName());
 		// パスワード
-		setValue("input[name='password']", site.getPassword());
+		setValue(String.format("input[name='%s']", site.getPasswordTextBox()), site.getPassword());
 		// オートログインOFF
-		setChecked("input[name='autologin']", false);
+		if(existsElement("input[name='autologin']")) {
+			setChecked("input[name='autologin']", false);
+		}
 		// セキュリティ強化OFF
-		setChecked("input[name='ipsec']", false);
+		if(existsElement("input[name='ipsec']")) {
+			setChecked("input[name='ipsec']", false);
+		}
 		// ログインボタン押下
-		click("input[name='submit']");
+		click(String.format("input[name='%s']", site.getLoginButton()));
 		// ページ読み込み完了を待つ
 		waitLoaded();
 		// 報酬明細リンクが存在すれば正常ログイン

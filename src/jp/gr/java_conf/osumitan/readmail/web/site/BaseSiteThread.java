@@ -3,6 +3,7 @@ package jp.gr.java_conf.osumitan.readmail.web.site;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -24,7 +25,7 @@ public abstract class BaseSiteThread extends Thread {
 	protected Site site;
 
 	/** ページ読み込み完了を待つスクリプト */
-	private static final String SCRIPT_WAIT_LOADED = "return document && document.readyState && (document.readyState == \"interactive\" || document.readyState == \"complete\");";
+	private static final String SCRIPT_WAIT_LOADED = "return document.readyState == 'interactive' || document.readyState == 'complete';";
 
 	/**
 	 * コンストラクタ
@@ -60,8 +61,17 @@ public abstract class BaseSiteThread extends Thread {
 	 * @param isTrue 条件判定処理
 	 */
 	protected void until(Function<RemoteWebDriver, Boolean> isTrue) {
+		until(isTrue, 3600L);
+	}
+
+	/**
+	 * 条件成立まで待つ
+	 * @param isTrue 条件判定処理
+	 * @param timeout タイムアウト
+	 */
+	protected void until(Function<RemoteWebDriver, Boolean> isTrue, long timeout) {
 		FluentWait<RemoteWebDriver> wait = new FluentWait<RemoteWebDriver>(this.driver);
-		wait.withTimeout(3600L, TimeUnit.SECONDS);
+		wait.withTimeout(timeout, TimeUnit.SECONDS);
 		wait.pollingEvery(100L, TimeUnit.MILLISECONDS);
 		wait.until(isTrue);
 	}
@@ -71,15 +81,11 @@ public abstract class BaseSiteThread extends Thread {
 	 */
 	protected void waitLoaded() {
 		// document.readyState が interactive または complete であること
-		until((driver) -> Boolean.TRUE.equals(this.driver.executeScript(SCRIPT_WAIT_LOADED)));
-	}
-
-	/**
-	 * ポイント獲得を待つ
-	 */
-	protected void waitPointGet() {
-		// 報酬獲得メッセージ表示まで待つ
-		until((driver) -> existsElement(By.xpath(String.format(site.getPointGetMessagePath(), site.getPointGetMessage()))));
+		try {
+			until((driver) -> Boolean.TRUE.toString().equals(this.driver.executeScript(SCRIPT_WAIT_LOADED)), 5L);
+		} catch(TimeoutException e) {
+			log("ページ読み込み待ちがタイムアウトしました。");
+		}
 	}
 
 	/**
@@ -88,9 +94,11 @@ public abstract class BaseSiteThread extends Thread {
 	 */
 	protected void get(String url) {
 		// ページ遷移
-		this.driver.get(url);
-		// ページ読み込み完了を待つ
-		waitLoaded();
+		try {
+			this.driver.get(url);
+		} catch(TimeoutException e) {
+			log("ページ読み込み待ちがタイムアウトしました。");
+		}
 	}
 
 	/**
@@ -143,7 +151,11 @@ public abstract class BaseSiteThread extends Thread {
 	 * @param by By
 	 */
 	protected void click(By by) {
-		findElement(by).click();
+		try {
+			findElement(by).click();
+		} catch(TimeoutException e) {
+			log("ページ読み込み待ちがタイムアウトしました。");
+		}
 	}
 
 	/**

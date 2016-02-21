@@ -42,24 +42,26 @@ public class InboxThread extends PointThread {
 				// ログ
 				log("受信箱ポイントを開いています…");
 				// 受信箱ポイントを開く
-				WebElement point = findElement(String.format("a[href*='%s']", site.getInboxPointLink()));
-				get(point.getAttribute("href"));
+				navigatePointLink(site.getInboxPointLink());
 				// ログ
 				log("受信箱ポイントを開きました。");
 				// ポイント獲得まで待つ
 				waitUntilPointGet();
 			}
-			// ログ
-			log("受信箱ページを開いています…");
-			// 受信箱を開く
-			navigate(site.getInboxPage());
-			// ログ
-			log("受信箱メールを削除しています…");
-			// 受信箱メールを削除する
-			setChecked(By.xpath(String.format(site.getInboxMailDeleteCheck(), site.getInboxMailLink())), true);
-			click(String.format("input[type='submit'][value='%s']", site.getInboxMailDeleteButton()));
-			// ログ
-			log("受信箱メールを削除しました。");
+			// 受信箱メール削除が必要な場合
+			if(site.isRequiredInboxMailDelete()) {
+				// ログ
+				log("受信箱ページを開いています…");
+				// 受信箱を開く
+				navigate(site.getInboxPage());
+				// ログ
+				log("受信箱メールを削除しています…");
+				// 受信箱メールを削除する
+				setChecked(By.xpath(String.format(site.getInboxMailDeleteCheck(), site.getInboxMailLink())), true);
+				click(String.format("input[type='submit'][value='%s']", site.getInboxMailDeleteButton()));
+				// ログ
+				log("受信箱メールを削除しました。");
+			}
 		} else {
 			// ログ
 			log("受信箱が終了しました。");

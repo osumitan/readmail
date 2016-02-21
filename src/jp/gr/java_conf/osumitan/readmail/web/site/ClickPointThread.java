@@ -1,7 +1,5 @@
 package jp.gr.java_conf.osumitan.readmail.web.site;
 
-import org.openqa.selenium.WebElement;
-
 import jp.gr.java_conf.osumitan.readmail.web.main.MainThread;
 
 /**
@@ -32,8 +30,7 @@ public class ClickPointThread extends PointThread {
 			// ログ
 			log("クリックポイントを開いています…");
 			// クリックポイントを開く
-			WebElement cp = findElement(String.format("a[href*='%s']", site.getClickPointLink()));
-			get(cp.getAttribute("href"));
+			navigatePointLink(site.getClickPointLink());
 			// ポイント獲得まで待つ
 			waitUntilPointGet();
 		} else {
